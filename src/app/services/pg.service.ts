@@ -12,6 +12,7 @@ export class PgService {
   backendPort = 3000
   backendHost = 'localhost'
   backendUrl = `http://${this.backendHost}:${this.backendPort}`
+  loginState = false
 
   constructor( private http: HttpClient, private router :Router ) { }
 
@@ -22,7 +23,10 @@ export class PgService {
     .pipe(catchError(async (err) => console.log(err)))
     .subscribe( (res) => {
       const { isLogged, msg} = res
-      if(isLogged) this.router.navigate(['main'])
+      if(isLogged){ 
+        this.loginState = true
+        this.router.navigate(['main'])
+      }
     })
   }
 }

@@ -9,13 +9,15 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import {PgService} from './services/pg.service';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+import { MainPageComponent } from './main-page/main-page.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    MainPageComponent,
   ],
   imports: [
     BrowserModule,
