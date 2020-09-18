@@ -11,7 +11,6 @@ export class PersonBrowserCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.personData)
   }
 
 }

@@ -1,8 +1,8 @@
 @import "../../styles.scss";
 
 .mainPageContainer {
-  display: grid;
-  grid-template-columns: 0.5fr 10fr 4fr;
+  display: flex;
+  
 
   .eventTable {
     display: flex;
@@ -29,7 +29,16 @@
         border-bottom: 1px solid #706c61;
         height: 1rem;
         cursor: pointer;
+
+        &.selected{
+          background-color: #ffcb8e;
+        }
       }
     }
+  }
+
+  .personsBrowser {
+    display: flex;
+    flex-direction: column;
   }
 }

@@ -1,0 +1,38 @@
+.card {
+  padding: 1rem 0;
+  margin: 1rem 0;
+  box-shadow: 10px 5px 5px #333333;
+  .cardBody {
+    padding: 0 1rem;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    display: grid;
+    grid-template-areas:
+      "a b b b"
+      "a c c c"
+      "f f f f";
+    img {
+      grid-area: a;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+
+    .personInfo {
+      grid-area: b;
+      justify-self: center;
+    }
+
+    .personAlias {
+      grid-area: c;
+      justify-self: center;
+    }
+
+    .footer {
+      grid-area: f;
+      display: flex;
+      justify-content: space-between;
+      margin: 0rem 1rem 0 7rem;
+    }
+  }
+}

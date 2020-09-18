@@ -32,13 +32,27 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  onEventTableClicked(e: IEvent, index : number) {
-    console.log(index)
-    this.pgQ.getPersonsOfEvent(e.id)
-    .subscribe( (res:IPerson[]) => {
-      res = res.map( (per:IPerson) => per = this.pg.trimManager(per))
-      this.selectedEventPersons = res
+  eventTableRowPainter(selectedRow :HTMLCollection) {
+    //remove old selection
+    Array.from(document.getElementsByClassName(`selected`)).map( node => {
+      node.className = node.className.substring(
+        0,
+        node.className.indexOf('selected')-1
+        )
     })
+    //and add new
+    Array.from(selectedRow).map( node => {
+      node.className += " selected"
+    })
+  }
+
+  onEventTableClicked(e: IEvent, index : number) {
+    this.eventTableRowPainter(document.getElementsByClassName(`${index} cell`))
+      this.pgQ.getPersonsOfEvent(e.id)
+      .subscribe( (res:IPerson[]) => {
+        res = res.map( (per:IPerson) => per = this.pg.trimManager(per))
+        this.selectedEventPersons = res
+      })
   }
 
 }
