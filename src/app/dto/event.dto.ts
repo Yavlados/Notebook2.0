@@ -1,3 +1,5 @@
+import {IPerson} from './person.dto'
+
 export interface IEvent {
     additional: string | null
     category: string | null
@@ -7,7 +9,7 @@ export interface IEvent {
     detention_time: string | null
     id: number | null
     keeping_place: string | null
-    persons: any[] //FIX IT!!
+    persons: IPerson[]
 }
 
 export const IEventHeaders={

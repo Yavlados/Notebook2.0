@@ -1,24 +1,30 @@
 @import "../../styles.scss";
 
-.eventTable {
-  display: flex;
-
-  .column {
+.mainPageContainer{
+  display: grid;
+  grid-template-columns: 0.5fr 10fr 4fr;
+  
+  .eventTable {
     display: flex;
-    flex-direction: column;
-    // margin: 0 1rem;
-    // border: 1px solid $borderColor;
-    .header {
-        background-color: #333333;
-        color: #ffffff;
-        padding: 1rem 1rem;
-    }
-
-    .cell {
-        padding: 1rem 1rem;
-        border-bottom: 1px solid #706c61;
-        height: 1rem;
-        cursor: pointer;
+    justify-content: center;
+    .column {
+      display: flex;
+      flex-direction: column;
+      // margin: 0 1rem;
+      // border: 1px solid $borderColor;
+      .header {
+          background-color: #333333;
+          color: #ffffff;
+          padding: 1rem 1rem;
+      }
+  
+      .cell {
+          padding: 1rem 1rem;
+          border-bottom: 1px solid #706c61;
+          height: 1rem;
+          cursor: pointer;
+      }
     }
   }
 }
+

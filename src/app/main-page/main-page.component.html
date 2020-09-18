@@ -1,9 +1,14 @@
-<div class="eventTable">
-    <div class="column" *ngFor="let keyOfHeader of eventTableHeaders | jsonKeys">
-        <div class="header">{{eventTableHeaders[keyOfHeader]}}</div>
-        <div *ngFor="let event of eventTable">
-            <div class="cell" (click)="onEventTableClicked(event)"> {{ event[keyOfHeader] }}</div>
+<div class="mainPageContainer">
+    <div class="navigationBar">
+    </div>
+    <div class="eventTable">
+        <div class="column" *ngFor="let keyOfHeader of eventTableHeaders | jsonKeys">
+            <div class="header">{{eventTableHeaders[keyOfHeader]}}</div>
+            <div *ngFor="let event of eventTable">
+                <div class="cell" (click)="onEventTableClicked(event)"> {{ event[keyOfHeader] }}</div>
+            </div>
         </div>
     </div>
+    <div class="personsBrowser">
+    </div>
 </div>
-

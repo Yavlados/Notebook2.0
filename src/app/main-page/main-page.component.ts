@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PgQueryService } from '../services/pg-query.service';
-import { IEvent, IEventHeaders } from '../dto/eventTable.dto'
+import { IEvent, IEventHeaders } from '../dto/event.dto'
+import { IPerson } from '../dto/person.dto';
+import { PgService } from '../services/pg.service';
 
 @Component({
   selector: 'app-main-page',
@@ -11,7 +13,7 @@ export class MainPageComponent implements OnInit {
   eventTable: IEvent[]
   eventTableHeaders = IEventHeaders
 
-  constructor(public pgQ: PgQueryService) { }
+  constructor(public pgQ: PgQueryService, public pg: PgService) { }
 
   ngOnInit(): void {
     this.getAllEvents()
@@ -20,10 +22,7 @@ export class MainPageComponent implements OnInit {
   getAllEvents() {
     this.pgQ.getAllEvents().subscribe((res: IEvent[]) => {
       this.eventTable = res.map(ev => {
-        Object.keys(ev).map( key => {
-          if(!! ev[key] && typeof ev[key] === 'string')
-            ev[key] = ev[key].trim()
-        })
+        ev = this.pg.trimManager(ev)
         ev['persons'] = []
         return ev
       })
@@ -31,7 +30,12 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  onEventTableClicked(e: any) {
+  onEventTableClicked(e: IEvent) {
+    this.pgQ.getPersonsOfEvent(e.id)
+    .subscribe( (res:IPerson[]) => {
+      res = res.map( (per:IPerson) => per = this.pg.trimManager(per))
+      console.log(res)
+    })
     console.log(e)
   }
 
