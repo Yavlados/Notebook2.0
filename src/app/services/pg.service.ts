@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {backendUrl} from '../../backend.conf'
 
 const httpOptions = new HttpHeaders()
 
@@ -9,15 +10,13 @@ const httpOptions = new HttpHeaders()
   providedIn: 'root'
 })
 export class PgService {
-  backendPort = 3000
-  backendHost = 'localhost'
-  backendUrl = `http://${this.backendHost}:${this.backendPort}`
+
   loginState = false
 
   constructor( private http: HttpClient, private router :Router ) { }
 
   login(loginData:any){
-    this.http.post<any>(`${this.backendUrl}/login`,
+    this.http.post<any>(`${backendUrl}/login`,
     loginData, 
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
