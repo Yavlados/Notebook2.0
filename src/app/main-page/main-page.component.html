@@ -1,0 +1,9 @@
+<div class="eventTableHeader">
+    <div class="column" *ngFor="let keyOfHeader of eventTableHeaders | jsonKeys">
+        <div class="header">{{eventTableHeaders[keyOfHeader]}}</div>
+        <div *ngFor="let event of eventTable">
+            <div class="tableCell"> {{ event[keyOfHeader] }}</div>
+        </div>
+    </div>
+</div>
+
