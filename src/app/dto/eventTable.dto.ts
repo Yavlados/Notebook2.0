@@ -7,6 +7,7 @@ export interface IEvent {
     detention_time: string | null
     id: number | null
     keeping_place: string | null
+    persons: any[] //FIX IT!!
 }
 
 export const IEventHeaders={
