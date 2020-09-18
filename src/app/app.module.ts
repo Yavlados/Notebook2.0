@@ -14,7 +14,8 @@ import {PgQueryService} from './services/pg-query.service'
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { JsonKeysPipe } from './pipes/json-keys.pipe';
-import { JsonValuesPipe } from './pipes/json-values.pipe'
+import { JsonValuesPipe } from './pipes/json-values.pipe';
+import { PersonBrowserCardComponent } from './main-page/person-browser-card/person-browser-card.component'
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { JsonValuesPipe } from './pipes/json-values.pipe'
     MainPageComponent,
     JsonKeysPipe,
     JsonValuesPipe,
+    PersonBrowserCardComponent,
   ],
   imports: [
     BrowserModule,

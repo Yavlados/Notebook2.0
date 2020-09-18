@@ -13,6 +13,8 @@ export class MainPageComponent implements OnInit {
   eventTable: IEvent[]
   eventTableHeaders = IEventHeaders
 
+  selectedEventPersons:IPerson[]
+
   constructor(public pgQ: PgQueryService, public pg: PgService) { }
 
   ngOnInit(): void {
@@ -30,13 +32,13 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  onEventTableClicked(e: IEvent) {
+  onEventTableClicked(e: IEvent, index : number) {
+    console.log(index)
     this.pgQ.getPersonsOfEvent(e.id)
     .subscribe( (res:IPerson[]) => {
       res = res.map( (per:IPerson) => per = this.pg.trimManager(per))
-      console.log(res)
+      this.selectedEventPersons = res
     })
-    console.log(e)
   }
 
 }

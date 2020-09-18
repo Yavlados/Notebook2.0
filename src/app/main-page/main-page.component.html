@@ -3,12 +3,27 @@
     </div>
     <div class="eventTable">
         <div class="column" *ngFor="let keyOfHeader of eventTableHeaders | jsonKeys">
-            <div class="header">{{eventTableHeaders[keyOfHeader]}}</div>
-            <div *ngFor="let event of eventTable">
-                <div class="cell" (click)="onEventTableClicked(event)"> {{ event[keyOfHeader] }}</div>
+            <div class="header"
+            [id]="eventTableHeaders[keyOfHeader]==='Дополнительная информация'? 'dopInfoHeader': '' "
+            >
+                {{eventTableHeaders[keyOfHeader]}}
+            </div>
+            <div *ngFor="let event of eventTable; let i = index">
+                <div [class]="'cell '+ i" (click)="onEventTableClicked(event, i)"> {{ event[keyOfHeader] }}</div>
             </div>
         </div>
     </div>
     <div class="personsBrowser">
+        <div *ngIf="selectedEventPersons; else eventIsNotSelected">
+
+        </div>
+        <div *ngFor="let person of selectedEventPersons">
+            <app-person-browser-card
+            [personData]="person"
+            ></app-person-browser-card>
+        </div>
+        <ng-template #eventIsNotSelected>
+            <div>Select event</div>
+        </ng-template>
     </div>
 </div>
