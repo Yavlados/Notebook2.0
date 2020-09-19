@@ -16,7 +16,9 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { JsonKeysPipe } from './pipes/json-keys.pipe';
 import { JsonValuesPipe } from './pipes/json-values.pipe';
 import { PersonBrowserCardComponent } from './main-page/person-browser-card/person-browser-card.component';
-import { SearchEventComponent } from './main-page/search-event/search-event.component'
+import { SearchEventComponent } from './main-page/search-event/search-event.component';
+import { SearchPipePipe } from './main-page/pipes/search-pipe.pipe';
+import { OptionsBarComponent } from './options-bar/options-bar.component'
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { SearchEventComponent } from './main-page/search-event/search-event.comp
     JsonValuesPipe,
     PersonBrowserCardComponent,
     SearchEventComponent,
+    SearchPipePipe,
+    OptionsBarComponent,
   ],
   imports: [
     BrowserModule,

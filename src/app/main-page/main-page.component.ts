@@ -12,7 +12,7 @@ import { PgService } from '../services/pg.service';
 export class MainPageComponent implements OnInit {
   eventTable: IEvent[]
   eventTableHeaders = IEventHeaders
-
+  searchNumber: null | number = null
   selectedEventPersons: IPerson[]
 
   constructor(public pgQ: PgQueryService, public pg: PgService) { }
@@ -61,6 +61,14 @@ export class MainPageComponent implements OnInit {
 
   isEventSelected() {
     return !! this.selectedEventPersons
+  }
+
+  handleSearch(num: number){
+    this.searchNumber = num
+  }
+  
+  handleClear(){
+    this.searchNumber = null
   }
 
 }

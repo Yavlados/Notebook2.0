@@ -1,7 +1,10 @@
 <div class="mainPageContainer">
     <div class="eventBlock">
         <div class="search">
-            <app-search-event></app-search-event>
+            <app-search-event
+            (search)="handleSearch($event)"
+            (clear)="handleClear()"
+            ></app-search-event>
         </div>
         <div class="eventTable">
             <div class="column" *ngFor="let keyOfHeader of eventTableHeaders | jsonKeys">
@@ -10,7 +13,8 @@
                 >
                     {{eventTableHeaders[keyOfHeader]}}
                 </div>
-                <div *ngFor="let event of eventTable; let i = index">
+                <div *ngFor="let event of (eventTable |searchPipe:searchNumber);
+                 let i = index">
                     <div [class]="'cell '+ i" (click)="onEventTableClicked(event, i)"> {{ event[keyOfHeader] }}</div>
                 </div>
             </div>
