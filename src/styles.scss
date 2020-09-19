@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 $borderColor: black;
+$buttonBC: #333333;
+$buttonBCHover: #706c61;
+$buttonC: white;
+
 
 @font-face {
   font-family: Roboto;
@@ -8,4 +12,20 @@ $borderColor: black;
 
 body {
   font-family: Roboto;
+}
+
+.button{
+  cursor: pointer;
+  background-color: $buttonBC;
+  color: $buttonC;
+  font-size: 0.8rem;
+  padding:  0.5rem 0.75rem;
+  margin: 0 0.25rem;
+  border-radius: 5px;
+  font-weight: normal;
+
+  &:hover{
+    background-color: $buttonBCHover;
+    transition: 0.25s;
+  }
 }

@@ -13,7 +13,7 @@ export class MainPageComponent implements OnInit {
   eventTable: IEvent[]
   eventTableHeaders = IEventHeaders
 
-  selectedEventPersons:IPerson[]
+  selectedEventPersons: IPerson[]
 
   constructor(public pgQ: PgQueryService, public pg: PgService) { }
 
@@ -32,27 +32,35 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  eventTableRowPainter(selectedRow :HTMLCollection) {
+  eventTableRowPainter(selectedRow: HTMLCollection) {
     //remove old selection
-    Array.from(document.getElementsByClassName(`selected`)).map( node => {
+    Array.from(document.getElementsByClassName(`selected`)).map(node => {
       node.className = node.className.substring(
         0,
-        node.className.indexOf('selected')-1
-        )
+        node.className.indexOf('selected') - 1
+      )
     })
     //and add new
-    Array.from(selectedRow).map( node => {
+    Array.from(selectedRow).map(node => {
       node.className += " selected"
     })
   }
 
-  onEventTableClicked(e: IEvent, index : number) {
+  onEventTableClicked(e: IEvent, index: number) {
     this.eventTableRowPainter(document.getElementsByClassName(`${index} cell`))
-      this.pgQ.getPersonsOfEvent(e.id)
-      .subscribe( (res:IPerson[]) => {
-        res = res.map( (per:IPerson) => per = this.pg.trimManager(per))
+    this.pgQ.getPersonsOfEvent(e.id)
+      .subscribe((res: IPerson[]) => {
+        res = res.map((per: IPerson) => per = this.pg.trimManager(per))
         this.selectedEventPersons = res
       })
+  }
+
+  isEventGotPersons() {
+    return this.selectedEventPersons.length !== 0
+  }
+
+  isEventSelected() {
+    return !! this.selectedEventPersons
   }
 
 }

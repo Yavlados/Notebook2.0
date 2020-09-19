@@ -41,7 +41,35 @@
   }
 
   .personsBrowser {
-    display: flex;
-    flex-direction: column;
+    min-width: 28vw;
+    height: 90vh;
+    border: 1px solid;
+    border-right: none;
+    padding: 0.3rem;
+
+    .browserHeader{
+      label{
+        display: flex;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 1rem 0;
+        text-transform: uppercase;
+      }
+    }
+
+    .browserBody{
+      display: flex;
+      flex-direction: column;
+
+      .browserEmptyMessage {
+        display: flex;
+        top: 35vh;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.3rem;
+      }
+    }
   }
 }

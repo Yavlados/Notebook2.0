@@ -17,16 +17,26 @@
         </div>
     </div>
     <div class="personsBrowser">
-        <div *ngIf="selectedEventPersons; else eventIsNotSelected">
-
+        <div class="browserHeader">
+            <label>Persons browser</label>
         </div>
-        <div *ngFor="let person of selectedEventPersons">
-            <app-person-browser-card
-            [personData]="person"
-            ></app-person-browser-card>
+        <div class="browserBody">
+            <div *ngIf="isEventSelected(); else eventIsNotSelected">
+                <div *ngIf="isEventGotPersons(); else eventIsEmpty">
+                    <div *ngFor="let person of selectedEventPersons">
+                        <app-person-browser-card
+                        [personData]="person"
+                        ></app-person-browser-card>
+                    </div>
+                </div>
+            </div>
+            <ng-template #eventIsNotSelected>
+                <div class="browserEmptyMessage">Выберите событие</div>
+            </ng-template>
+            <ng-template #eventIsEmpty>
+                <div class="browserEmptyMessage">В выбранном событии нет фигурантов</div>
+            </ng-template>
         </div>
-        <ng-template #eventIsNotSelected>
-            <div>Select event</div>
-        </ng-template>
+        
     </div>
 </div>

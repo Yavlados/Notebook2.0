@@ -16,10 +16,10 @@ export const IEventHeaders={
     id: 'ID',
     category: 'Категория',
     detention_by: 'Кем задержан',
-    detention_date: 'Дата задержания',
     detention_reason: 'Повод задержания',
-    detention_time: 'Время задержания',
     keeping_place: 'Место хранения',
+    detention_date: 'Дата задержания',
+    detention_time: 'Время задержания',
     additional: 'Дополнительная информация',
 
 }
