@@ -28,4 +28,12 @@ export class PgService {
       }
     })
   }
+
+  trimManager( resObj: any):any {
+    Object.keys(resObj).map( key => {
+      if(!! resObj[key] && typeof resObj[key] === 'string')
+      resObj[key] = resObj[key].trim()
+    })
+    return resObj
+  }
 }

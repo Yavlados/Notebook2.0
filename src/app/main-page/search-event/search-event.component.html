@@ -1,0 +1,7 @@
+<div class="searchContainer">
+    <label>Поиск по ID</label>
+    <input type="text" [value]="searchText" 
+    (keydown)="oneEnterPressed($event)"
+    [(ngModel)]="searchText">
+    <div class="button" (click)="searchOnEventTable()">Найти</div>
+</div>

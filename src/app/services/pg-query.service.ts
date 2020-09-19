@@ -2,8 +2,13 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import {IEvent} from '../dto/eventTable.dto'
+
+import {IEvent} from '../dto/event.dto'
+import {IPerson} from '../dto/person.dto'
+
 import { backendUrl } from '../../backend.conf'
+
+const httpOptions = new HttpHeaders()
 
 @Injectable({
   providedIn: 'root'
@@ -16,4 +21,12 @@ export class PgQueryService {
    return this.http.get<IEvent[]>(`${backendUrl}/main/get_all_events`)
     .pipe(catchError(async (err) => console.log(err)))
   }
+
+  getPersonsOfEvent(eventId: number) {
+    return this.http.post<IPerson[]>(`${backendUrl}/main/get_event_persons`,
+    {eventId},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
 }
+

@@ -1,9 +1,46 @@
-<div class="eventTableHeader">
-    <div class="column" *ngFor="let keyOfHeader of eventTableHeaders | jsonKeys">
-        <div class="header">{{eventTableHeaders[keyOfHeader]}}</div>
-        <div *ngFor="let event of eventTable">
-            <div class="tableCell"> {{ event[keyOfHeader] }}</div>
+<div class="mainPageContainer">
+    <div class="eventBlock">
+        <div class="search">
+            <app-search-event
+            (search)="handleSearch($event)"
+            (clear)="handleClear()"
+            ></app-search-event>
+        </div>
+        <div class="eventTable">
+            <div class="column" *ngFor="let keyOfHeader of eventTableHeaders | jsonKeys">
+                <div class="header"
+                [id]="eventTableHeaders[keyOfHeader]==='Дополнительная информация'? 'dopInfoHeader': '' "
+                >
+                    {{eventTableHeaders[keyOfHeader]}}
+                </div>
+                <div *ngFor="let event of (eventTable |searchPipe:searchNumber);
+                 let i = index">
+                    <div [class]="'cell '+ i" (click)="onEventTableClicked(event, i)"> {{ event[keyOfHeader] }}</div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="personsBrowser">
+        <div class="browserHeader">
+            <label>Persons browser</label>
+        </div>
+        <div class="browserBody">
+            <div *ngIf="isEventSelected(); else eventIsNotSelected">
+                <div *ngIf="isEventGotPersons(); else eventIsEmpty">
+                    <div *ngFor="let person of selectedEventPersons">
+                        <app-person-browser-card
+                        [personData]="person"
+                        ></app-person-browser-card>
+                    </div>
+                </div>
+            </div>
+            <ng-template #eventIsNotSelected>
+                <div class="browserEmptyMessage">Выберите событие</div>
+            </ng-template>
+            <ng-template #eventIsEmpty>
+                <div class="browserEmptyMessage">В выбранном событии нет фигурантов</div>
+            </ng-template>
+        </div>
+        
+    </div>
 </div>
-
