@@ -15,7 +15,8 @@ import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { JsonKeysPipe } from './pipes/json-keys.pipe';
 import { JsonValuesPipe } from './pipes/json-values.pipe';
-import { PersonBrowserCardComponent } from './main-page/person-browser-card/person-browser-card.component'
+import { PersonBrowserCardComponent } from './main-page/person-browser-card/person-browser-card.component';
+import { SearchEventComponent } from './main-page/search-event/search-event.component'
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { PersonBrowserCardComponent } from './main-page/person-browser-card/pers
     JsonKeysPipe,
     JsonValuesPipe,
     PersonBrowserCardComponent,
+    SearchEventComponent,
   ],
   imports: [
     BrowserModule,

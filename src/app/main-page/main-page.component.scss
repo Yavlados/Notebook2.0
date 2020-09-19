@@ -2,36 +2,39 @@
 
 .mainPageContainer {
   display: flex;
-  
+  .eventBlock {
+    .search {
+    }
 
-  .eventTable {
-    display: flex;
-    justify-content: center;
-    .column {
-      flex-direction: column;
+    .eventTable {
       display: flex;
-      .header {
-        background-color: #333333;
-        color: #ffffff;
-        padding: 1rem 1rem;
-        height: 2rem;
-
+      justify-content: center;
+      .column {
+        flex-direction: column;
         display: flex;
-        align-items: center;
+        .header {
+          background-color: #333333;
+          color: #ffffff;
+          padding: 1rem 1rem;
+          height: 2rem;
 
-        &#dopInfoHeader {
-          width: 15vw;
+          display: flex;
+          align-items: center;
+
+          &#dopInfoHeader {
+            width: 15vw;
+          }
         }
-      }
 
-      .cell {
-        padding: 1rem 1rem;
-        border-bottom: 1px solid #706c61;
-        height: 1rem;
-        cursor: pointer;
+        .cell {
+          padding: 1rem 1rem;
+          border-bottom: 1px solid #706c61;
+          height: 1rem;
+          cursor: pointer;
 
-        &.selected{
-          background-color: #ffcb8e;
+          &.selected {
+            background-color: #ffcb8e;
+          }
         }
       }
     }

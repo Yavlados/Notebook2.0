@@ -12,4 +12,11 @@ export class AppComponent {
   constructor (public pg: PgService) {
 
   }
+
+  checkRouterState(){
+    if(document.location.pathname !== '/login')
+      return true
+    else
+      return false
+  }
 }

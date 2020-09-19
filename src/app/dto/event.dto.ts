@@ -13,12 +13,13 @@ export interface IEvent {
 }
 
 export const IEventHeaders={
-    additional: 'Дополнительная информация',
-    category: 'Категория',
-    detention_by: 'Детеншен бай',
-    detention_date: 'Детеншен дейт',
-    detention_reason: 'Детеншен ризон',
-    detention_time: 'Детеншен тайм',
     id: 'ID',
-    keeping_place: 'Место хранения'
+    category: 'Категория',
+    detention_by: 'Кем задержан',
+    detention_date: 'Дата задержания',
+    detention_reason: 'Повод задержания',
+    detention_time: 'Время задержания',
+    keeping_place: 'Место хранения',
+    additional: 'Дополнительная информация',
+
 }
