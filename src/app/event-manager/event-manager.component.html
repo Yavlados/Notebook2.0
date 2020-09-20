@@ -1,1 +1,44 @@
-<p>event-manager works!</p>
+<div class="modalBackground">
+    <div class="modalWindow">
+        <div class="modalHeader">
+            <div class="button closeButton" (click)="closeModal()">X</div>
+            <div *ngIf="isAddMode(); else editMode">
+                <div class="title">Создание нового события</div>
+            </div>
+            <ng-template #editMode>
+                <div *ngIf="isEditMode()">
+                    <div class="title">Редактирование события</div>
+                </div>
+            </ng-template>
+        </div>
+        <div class="modalBody">
+            <form [formGroup]="eventData" (ngSubmit)="onFormSubmit()">
+                <div class="row">
+                    <span class="legend">additional:</span>
+                    <input type="text" formControlName="additional"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">category:</span>
+                    <input type="text" formControlName="category"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">detention_by:</span>
+                    <input type="text" formControlName="detention_by"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">detention_reason:</span>
+                    <input type="text" formControlName="detention_reason"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">keeping_place:</span>
+                    <input type="text" formControlName="keeping_place"/>
+                </div>
+                <button type="submit">Login</button>
+            </form> 
+        </div>
+    </div>
+</div>

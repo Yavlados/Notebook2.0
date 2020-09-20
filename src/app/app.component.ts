@@ -7,7 +7,7 @@ import { PgService } from './services/pg.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'AngularApp';
+  title = 'Записная книжка 2.0';
 
   constructor (public pg: PgService) {
 
