@@ -12,4 +12,8 @@ export class OptionsBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onAddEventClicked()
+  {
+    
+  }
 }
