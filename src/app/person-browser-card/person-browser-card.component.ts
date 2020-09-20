@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {IPerson} from '../../dto/person.dto'
+import {IPerson} from '../dto/person.dto'
 @Component({
   selector: 'app-person-browser-card',
   templateUrl: './person-browser-card.component.html',
