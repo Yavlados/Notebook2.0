@@ -1,11 +1,23 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
-import { IEvent } from '../../dto/event.dto'
+import { IEvent, IEventHeaders } from '../../dto/event.dto'
 import { IPerson } from '../../dto/person.dto'
 
 export enum eventManagerStates {
   editMode,
   addMode
+}
+
+export const emptyEvent = {
+  additional: '',
+  category: '',
+  detention_by: '',
+  detention_date: '',
+  detention_reason: '',
+  detention_time: '',
+  id: null,
+  keeping_place: '',
+  persons: [] as IPerson[]
 }
 
 @Component({
@@ -16,44 +28,14 @@ export enum eventManagerStates {
 export class EventManagerComponent implements OnInit {
   element
   public emState: eventManagerStates
-  editableEvent: IEvent
-  eventData = new FormGroup({
-    additional: new FormControl(this.isEditMode() ? this.editableEvent.additional : ''),
-    category: new FormControl(this.isEditMode() ? this.editableEvent.category : ''),
-    detention_by: new FormControl(this.isEditMode() ? this.editableEvent.detention_by : ''),
-    detention_reason: new FormControl(this.isEditMode() ? this.editableEvent.detention_reason : ''),
-    keeping_place: new FormControl(this.isEditMode() ? this.editableEvent.keeping_place : ''),
-  })
+  editableEvent: IEvent = emptyEvent
 
   constructor(private el: ElementRef) {
     this.element = el.nativeElement
-    this.editableEvent = {
-      additional: '',
-      category: '',
-      detention_by: '',
-      detention_date: '',
-      detention_reason: '',
-      detention_time: '',
-      id: null,
-      keeping_place: '',
-      persons: [] as IPerson[]
-    }
   }
   ngOnInit(): void {
     // Initial state
     this.closeModal()
-  }
-
-  openAddEM() {
-
-    this.emState = eventManagerStates.addMode
-    this.element.style.display = 'block'
-  }
-
-  openEditEM(event: IEvent) {
-    this.editableEvent = event
-    this.emState = eventManagerStates.editMode
-    this.element.style.display = 'block'
   }
 
   closeModal() {
@@ -69,7 +51,7 @@ export class EventManagerComponent implements OnInit {
   }
 
   onFormSubmit() {
-    console.log(this.eventData)
+    console.log(this.editableEvent)
   }
 
   onKeyDown(e: KeyboardEvent) {

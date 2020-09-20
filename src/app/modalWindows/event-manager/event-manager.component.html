@@ -12,37 +12,47 @@
             </ng-template>
         </div>
         <div class="modalBody">
-            <form [formGroup]="eventData" (ngSubmit)="onFormSubmit()" 
+            <form
             id="EMform">
                 <div class="row">
                     <span class="legend">Категория:</span>
-                    <input type="text" formControlName="category"/>
+                    <input type="text" 
+                    [(ngModel)]="editableEvent.category"
+                    name="category"/>
                 </div>
 
                 <div class="row">
                     <span class="legend">Кем задержан:</span>
-                    <input type="text" formControlName="detention_by"/>
+                    <input type="text" 
+                    [(ngModel)]="editableEvent.detention_by"
+                    name="detention_by"/>
                 </div>
 
                 <div class="row">
                     <span class="legend">Причина задержания:</span>
-                    <input type="text" formControlName="detention_reason"/>
+                    <input type="text" 
+                    [(ngModel)]="editableEvent.detention_reason"
+                    name="detention_reason"/>
                 </div>
 
                 <div class="row">
                     <span class="legend">Место хранения:</span>
-                    <input type="text" formControlName="keeping_place"/>
+                    <input type="text" 
+                    [(ngModel)]="editableEvent.keeping_place"
+                    name="keeping_place"/>
                 </div>
 
                 <div class="row">
                     <span class="legend">Дополнительная информация:</span>
-                    <textarea type="text" formControlName="additional"></textarea>
+                    <textarea type="text" 
+                    [(ngModel)]="editableEvent.additional"
+                    name="additional"
+                    ></textarea>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit" (click)="onFormSubmit()">Login</button>
             </form> 
             <div class="personBrowser">
                 <div class="title">
-                    Persons browser 
                 </div> 
                 <div class="buttonsLayout">
                     <div class="button">Добавить нового фигуранта</div>

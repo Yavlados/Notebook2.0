@@ -3,6 +3,7 @@ import { PgQueryService } from '../services/pg-query.service';
 import { IEvent, IEventHeaders } from '../dto/event.dto'
 import { IPerson } from '../dto/person.dto';
 import { PgService } from '../services/pg.service';
+import { EventManagerService } from '../services/event-manager.service';
 
 @Component({
   selector: 'app-main-page',
@@ -15,7 +16,9 @@ export class MainPageComponent implements OnInit {
   searchNumber: null | number = null
   selectedEventPersons: IPerson[]
 
-  constructor(public pgQ: PgQueryService, public pg: PgService) { }
+  constructor(public pgQ: PgQueryService,
+    public pg: PgService,
+    public em: EventManagerService) { }
 
   ngOnInit(): void {
     this.getAllEvents()
@@ -51,7 +54,7 @@ export class MainPageComponent implements OnInit {
     this.pgQ.getPersonsOfEvent(e.id)
       .subscribe((res: IPerson[]) => {
         res = res.map((per: IPerson) => per = this.pg.trimManager(per))
-        this.selectedEventPersons = res
+        this.selectedEventPersons = e.persons = res
       })
   }
 
@@ -72,7 +75,8 @@ export class MainPageComponent implements OnInit {
   }
 
   onEventTableDblClicked(event: IEvent, i:number){
-    
+    // this.onEventTableClicked(event, i)
+    this.em.openEditEM(event)
   }
 
 }
