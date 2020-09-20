@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PgService } from './services/pg.service';
+import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,8 @@ import { PgService } from './services/pg.service';
 })
 export class AppComponent {
   title = 'Записная книжка 2.0';
-
+  @ViewChild('eventManager') eventManager:EventManagerComponent
+  
   constructor (public pg: PgService) {
 
   }
@@ -18,5 +20,9 @@ export class AppComponent {
       return true
     else
       return false
+  }
+
+  openAddEvent(){
+    this.eventManager.openAddEM()
   }
 }

@@ -71,4 +71,8 @@ export class MainPageComponent implements OnInit {
     this.searchNumber = null
   }
 
+  onEventTableDblClicked(event: IEvent, i:number){
+    
+  }
+
 }

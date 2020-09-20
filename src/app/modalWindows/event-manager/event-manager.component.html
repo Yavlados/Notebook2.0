@@ -1,0 +1,58 @@
+<div class="modalBackground" (keydown)="onKeyDown($event)">
+    <div class="modalWindow">
+        <div class="modalHeader">
+            <div class="button closeButton" (click)="closeModal()">X</div>
+            <div *ngIf="isAddMode(); else editMode">
+                <div class="title">Создание нового события</div>
+            </div>
+            <ng-template #editMode>
+                <div *ngIf="isEditMode()">
+                    <div class="title">Редактирование события</div>
+                </div>
+            </ng-template>
+        </div>
+        <div class="modalBody">
+            <form [formGroup]="eventData" (ngSubmit)="onFormSubmit()" 
+            id="EMform">
+                <div class="row">
+                    <span class="legend">Категория:</span>
+                    <input type="text" formControlName="category"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">Кем задержан:</span>
+                    <input type="text" formControlName="detention_by"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">Причина задержания:</span>
+                    <input type="text" formControlName="detention_reason"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">Место хранения:</span>
+                    <input type="text" formControlName="keeping_place"/>
+                </div>
+
+                <div class="row">
+                    <span class="legend">Дополнительная информация:</span>
+                    <textarea type="text" formControlName="additional"></textarea>
+                </div>
+                <button type="submit">Login</button>
+            </form> 
+            <div class="personBrowser">
+                <div class="title">
+                    Persons browser 
+                </div> 
+                <div class="buttonsLayout">
+                    <div class="button">Добавить нового фигуранта</div>
+                    <div class="button">Добавить из имеющихся</div>
+                </div>
+                <div class="body" *ngFor="let person of editableEvent.persons">
+                    <app-person-browser-card [personData]="person">
+                    </app-person-browser-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

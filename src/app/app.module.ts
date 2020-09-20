@@ -19,7 +19,7 @@ import { PersonBrowserCardComponent } from './main-page/person-browser-card/pers
 import { SearchEventComponent } from './main-page/search-event/search-event.component';
 import { SearchPipePipe } from './main-page/pipes/search-pipe.pipe';
 import { OptionsBarComponent } from './options-bar/options-bar.component';
-import { EventManagerComponent } from './event-manager/event-manager.component'
+import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component'
 
 
 @NgModule({

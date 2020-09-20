@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
-import {IEvent} from '../dto/event.dto'
-import {IPerson} from '../dto/person.dto'
+import { IEvent } from '../../dto/event.dto'
+import { IPerson } from '../../dto/person.dto'
 
-export enum eventManagerStates{
+export enum eventManagerStates {
   editMode,
   addMode
 }
@@ -18,7 +18,7 @@ export class EventManagerComponent implements OnInit {
   public emState: eventManagerStates
   editableEvent: IEvent
   eventData = new FormGroup({
-    additional: new FormControl( this.isEditMode() ? this.editableEvent.additional : ''),
+    additional: new FormControl(this.isEditMode() ? this.editableEvent.additional : ''),
     category: new FormControl(this.isEditMode() ? this.editableEvent.category : ''),
     detention_by: new FormControl(this.isEditMode() ? this.editableEvent.detention_by : ''),
     detention_reason: new FormControl(this.isEditMode() ? this.editableEvent.detention_reason : ''),
@@ -27,37 +27,54 @@ export class EventManagerComponent implements OnInit {
 
   constructor(private el: ElementRef) {
     this.element = el.nativeElement
-   }
-
+    this.editableEvent = {
+      additional: '',
+      category: '',
+      detention_by: '',
+      detention_date: '',
+      detention_reason: '',
+      detention_time: '',
+      id: null,
+      keeping_place: '',
+      persons: [] as IPerson[]
+    }
+  }
   ngOnInit(): void {
     // Initial state
     this.closeModal()
   }
 
-  openAddEM(){
+  openAddEM() {
+
     this.emState = eventManagerStates.addMode
     this.element.style.display = 'block'
   }
 
-  openEditEM(){
+  openEditEM(event: IEvent) {
+    this.editableEvent = event
     this.emState = eventManagerStates.editMode
     this.element.style.display = 'block'
   }
 
-  closeModal(){
+  closeModal() {
     this.element.style.display = 'none'
   }
 
-  isEditMode(){
+  isEditMode() {
     return this.emState === eventManagerStates.editMode
   }
 
-  isAddMode(){
+  isAddMode() {
     return this.emState === eventManagerStates.addMode
   }
 
-  onFormSubmit(){
+  onFormSubmit() {
     console.log(this.eventData)
   }
 
+  onKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Escape')
+      this.closeModal();
+    else return
+  }
 }

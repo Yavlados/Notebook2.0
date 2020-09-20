@@ -16,7 +16,8 @@
                 <div *ngFor="let event of (eventTable |searchPipe:searchNumber);
                  let i = index">
                     <div [class]="'cell '+ i" 
-                    (click)="onEventTableClicked(event, i)"> 
+                    (click)="onEventTableClicked(event, i)"
+                    (dblclick)="onEventTableDblClicked(event,i)"> 
                         {{ event[keyOfHeader] }}</div>
                 </div>
             </div>

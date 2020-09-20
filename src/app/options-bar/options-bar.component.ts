@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import {EventManagerComponent} from '../event-manager/event-manager.component'
+import { Component, OnInit, ViewChild, ViewContainerRef, Output, EventEmitter } from '@angular/core';
+import {EventManagerComponent} from '../modalWindows/event-manager/event-manager.component'
 @Component({
   selector: 'app-options-bar',
   templateUrl: './options-bar.component.html',
   styleUrls: ['./options-bar.component.scss']
 })
 export class OptionsBarComponent implements OnInit {
-  @ViewChild('eventManager') eventManager:EventManagerComponent
+
+  @Output() ondAddEvent: EventEmitter<any> = new EventEmitter<any>()
 
   constructor() { }
 
@@ -14,6 +15,6 @@ export class OptionsBarComponent implements OnInit {
   }
 
   onAddEventClicked() {
-    this.eventManager.openAddEM()
+    this.ondAddEvent.emit()
   }
 }

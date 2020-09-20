@@ -34,6 +34,24 @@
         }
 
         .modalBody {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            
+            #EMform{
+                padding-top: 3rem;
+            }
+            .personBrowser{
+                // background-color: #333;
+                position: absolute;
+                right: 6%;
+                height: 80%;
+                width: 30%;
+
+                .buttonsLayout{
+                    display: flex;
+                    justify-content: center;
+                }
+            }
 
         }
     }
