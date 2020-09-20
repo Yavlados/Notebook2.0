@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild, ViewContainerRef, Output, EventEmitter } from '@angular/core';
+import {EventManagerComponent} from '../modalWindows/event-manager/event-manager.component'
 @Component({
   selector: 'app-options-bar',
   templateUrl: './options-bar.component.html',
@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OptionsBarComponent implements OnInit {
 
+  @Output() ondAddEvent: EventEmitter<any> = new EventEmitter<any>()
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onAddEventClicked()
-  {
-    
+  onAddEventClicked() {
+    this.ondAddEvent.emit()
   }
 }

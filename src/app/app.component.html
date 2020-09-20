@@ -1,5 +1,10 @@
 <h1 class="header">Записная книжка 2.0</h1>
 <div *ngIf="checkRouterState()">
-    <app-options-bar></app-options-bar>
+    <app-options-bar
+    (ondAddEvent)="openAddEvent()"
+    ></app-options-bar>
 </div>
+<app-event-manager #eventManager>
+</app-event-manager>
+
 <router-outlet></router-outlet>
