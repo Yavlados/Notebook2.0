@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import { IEvent, IEventHeaders } from '../../dto/event.dto'
 import { IPerson } from '../../dto/person.dto'
+import { PersonManagerService } from 'src/app/services/person-manager.service';
 
 export enum eventManagerStates {
   editMode,
@@ -30,7 +31,8 @@ export class EventManagerComponent implements OnInit {
   public emState: eventManagerStates
   editableEvent: IEvent = emptyEvent
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef,
+    private pm: PersonManagerService) {
     this.element = el.nativeElement
   }
   ngOnInit(): void {
@@ -58,5 +60,13 @@ export class EventManagerComponent implements OnInit {
     if (e.key === 'Escape')
       this.closeModal();
     else return
+  }
+
+  onRemovePerson(personIndex: number){
+    this.editableEvent.persons.splice(personIndex, 1)
+  }
+
+  AddPerson(){
+    this.pm.openAddPM()
   }
 }

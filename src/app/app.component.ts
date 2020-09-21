@@ -1,7 +1,11 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { PgService } from './services/pg.service';
-import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component';
+
 import { EventManagerService } from './services/event-manager.service';
+import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component';
+
+import { PersonManagerService } from './services/person-manager.service'
+import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +15,15 @@ import { EventManagerService } from './services/event-manager.service';
 export class AppComponent implements AfterViewInit{
   title = 'Записная книжка 2.0';
   @ViewChild('eventManager') eventManager:EventManagerComponent
+  @ViewChild('personManager') personManager: PersonManagerComponent
 
-  constructor (public pg: PgService, public em: EventManagerService) {
+  constructor (public pg: PgService, 
+    public em: EventManagerService,
+    public pm: PersonManagerService) {
   }
   ngAfterViewInit(): void {
     this.em.component = this.eventManager
+    this.pm.component = this.personManager
   }
 
   checkRouterState(){

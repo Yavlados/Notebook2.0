@@ -55,11 +55,15 @@
                 <div class="title">
                 </div> 
                 <div class="buttonsLayout">
-                    <div class="button">Добавить нового фигуранта</div>
-                    <div class="button">Добавить из имеющихся</div>
+                    <div class="button" (click)="AddPerson()">+</div>
                 </div>
-                <div class="body" *ngFor="let person of editableEvent.persons">
-                    <app-person-browser-card [personData]="person">
+                <div class="body" *ngFor="let person of editableEvent.persons;
+                let personIndex = index">
+                    <app-person-browser-card
+                    [personData]="person"
+                    [personIndex]="personIndex"
+                    [removable]="true"
+                    (deletePerson)="onRemovePerson($event)">
                     </app-person-browser-card>
                 </div>
             </div>

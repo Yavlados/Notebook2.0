@@ -1,4 +1,7 @@
 <div class="card">
+  <span *ngIf="removable">
+    <div class="button removeButton" (click)="removePerson()">Удалить</div>
+  </span>
   <div class="cardBody">
     <img src="../../../assets/svgIcons/person.svg" />
     <div class="personInfo">

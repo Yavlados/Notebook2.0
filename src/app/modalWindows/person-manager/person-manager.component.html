@@ -1,0 +1,42 @@
+<div class="modalBackground personModalBackground">
+  <div class="modalWindow personModalWindow">
+    <div class="modalHeader personModalHeader">
+        <div class="button closeButton" (click)="closeModal()">X</div>
+        <div *ngIf="isAddMode(); else editMode">
+            <div class="title">Создание нового фигуранта</div>
+        </div>
+        <ng-template #editMode>
+            <div class="title">Редактирование выбранного фиугранта</div>
+        </ng-template>
+
+    </div>
+    <div class="modalBody personModalBody">
+        <form>
+            <div class="row">
+                <span class="legend">Фамилия:</span>
+                    <input type="text" 
+                    [(ngModel)]="editablePerson.lastname"
+                    name="category"/>
+            </div>
+            <div class="row">
+                <span class="legend">Имя:</span>
+                    <input type="text" 
+                    [(ngModel)]="editablePerson.name"
+                    name="category"/>
+            </div>
+            <div class="row">
+                <span class="legend">Отчество:</span>
+                    <input type="text" 
+                    [(ngModel)]="editablePerson.midname"
+                    name="category"/>
+            </div>
+            <div class="row">
+                <span class="legend">Кличка:</span>
+                    <input type="text"
+                    [(ngModel)]="editablePerson.alias"
+                    name="category"/>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

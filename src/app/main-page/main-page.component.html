@@ -30,9 +30,11 @@
         <div class="browserBody">
             <div *ngIf="isEventSelected(); else eventIsNotSelected">
                 <div *ngIf="isEventGotPersons(); else eventIsEmpty">
-                    <div *ngFor="let person of selectedEventPersons">
+                    <div *ngFor="let person of selectedEventPersons; let personIndex = index ">
                         <app-person-browser-card
                         [personData]="person"
+                        [personIndex]="personIndex"
+                        [removable]="false"
                         ></app-person-browser-card>
                     </div>
                 </div>
