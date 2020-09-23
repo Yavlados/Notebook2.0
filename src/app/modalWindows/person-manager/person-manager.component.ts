@@ -11,7 +11,8 @@ export const emptyPerson :IPerson = {
   lastname: '',
   midname: '',
   name: '',
-  id: null
+  id: null,
+  telephones: []
 }
 
 @Component({
