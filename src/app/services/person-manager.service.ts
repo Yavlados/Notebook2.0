@@ -26,10 +26,11 @@ export class PersonManagerService {
   openEditPM(person: IPerson) {
     this.pq.getTelephonesOfPerson(person.id)
       .subscribe((res: ITelephone[]) => {
+        res.map(tel => {
+          tel.contacts = []
+        })
         person.telephones = res
-        console.log(person)
       })
-    console.log(person)
     this.component.pmState = personManagerStates.editMode
     this.component.editablePerson = person
     this.component.element.style.display = 'block'

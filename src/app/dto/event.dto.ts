@@ -23,3 +23,15 @@ export const IEventHeaders={
     additional: 'Дополнительная информация',
 
 }
+
+export const emptyEvent = {
+    additional: '',
+    category: '',
+    detention_by: '',
+    detention_date: '',
+    detention_reason: '',
+    detention_time: '',
+    id: null,
+    keeping_place: '',
+    persons: [] as IPerson[]
+  }

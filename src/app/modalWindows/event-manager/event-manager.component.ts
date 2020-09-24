@@ -1,24 +1,12 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
-import { IEvent, IEventHeaders } from '../../dto/event.dto'
+import { IEvent, emptyEvent } from '../../dto/event.dto'
 import { IPerson } from '../../dto/person.dto'
 import { PersonManagerService } from 'src/app/services/person-manager.service';
 
 export enum eventManagerStates {
   editMode,
   addMode
-}
-
-export const emptyEvent = {
-  additional: '',
-  category: '',
-  detention_by: '',
-  detention_date: '',
-  detention_reason: '',
-  detention_time: '',
-  id: null,
-  keeping_place: '',
-  persons: [] as IPerson[]
 }
 
 @Component({

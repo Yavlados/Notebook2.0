@@ -36,6 +36,45 @@
                     name="alias"/>
             </div>
         </form>
+        <div class="tablesContainer">
+            <div class="telephonesTable">
+                <div class="title">
+                    Telephones
+                    <div class="button">+</div>
+                    <div class="button">-</div>
+                </div>
+                <div class="body">
+                    <div *ngFor="let telephone of editablePerson.telephones">
+                        <div class="row telephoneRow" (click)="onTelephoneTableClicked(telephone)">
+                            <div class="phoneIcon">
+                                <img src="../../../assets/svgIcons/phone.svg">
+                            </div>
+                            <div class="telephoneNumber">
+                                {{telephone.number}}
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            <div class="contactsTable">
+                <div class="title">
+                    Contacts
+                    <div class="button">+</div>
+                    <div class="button">-</div>
+                </div>
+                <div class="body">
+                    <div *ngFor="let contact of clickedTelephone.contacts">
+                        <div class="row contactRow">
+                            <div class="contactIcon">
+                                <img src="../../../assets/svgIcons/contact.svg">
+                            </div>
+                            <div class="contactNumber">{{contact.number}}</div>
+                            <div class="contactAlias">{{contact.alias}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 </div>

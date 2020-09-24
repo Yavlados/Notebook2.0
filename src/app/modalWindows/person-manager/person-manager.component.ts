@@ -1,19 +1,14 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { IPerson } from '../../dto/person.dto'
+import { IPerson, emptyPerson} from '../../dto/person.dto'
+import { ITelephone, emptyTelephone } from 'src/app/dto/telephone.dto';
+import { PgQueryService } from 'src/app/services/pg-query.service';
+import { IContact } from 'src/app/dto/contact.dto';
 
 export enum personManagerStates {
   editMode,
   addMode
 }
 
-export const emptyPerson :IPerson = {
-  alias: '',
-  lastname: '',
-  midname: '',
-  name: '',
-  id: null,
-  telephones: []
-}
 
 @Component({
   selector: 'app-person-manager',
@@ -24,8 +19,10 @@ export class PersonManagerComponent implements OnInit {
   element
   public pmState: personManagerStates
   editablePerson: IPerson = emptyPerson
+  clickedTelephone: ITelephone = emptyTelephone
+  isTelephoneClicked: boolean = false
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef, public pq: PgQueryService) {
     this.element = el.nativeElement
    }
 
@@ -45,4 +42,15 @@ export class PersonManagerComponent implements OnInit {
   isAddMode() {
     return this.pmState === personManagerStates.addMode
   }
+
+  onTelephoneTableClicked( telephone: ITelephone) {
+    this.clickedTelephone = telephone
+    this.isTelephoneClicked = true
+
+    this.pq.getTelephoneContacts(this.clickedTelephone.id)
+    .subscribe((res: IContact[]) => {
+      this.clickedTelephone.contacts = res
+    })
+  }
+
 }

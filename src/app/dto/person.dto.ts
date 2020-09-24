@@ -16,3 +16,12 @@ export const IPersonHeaders = {
     midname: "Отчество",
     alias: "Кличка"
 }
+
+export const emptyPerson :IPerson = {
+    alias: '',
+    lastname: '',
+    midname: '',
+    name: '',
+    id: null,
+    telephones: []
+  }

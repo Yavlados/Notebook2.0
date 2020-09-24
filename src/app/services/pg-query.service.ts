@@ -8,6 +8,7 @@ import {IPerson} from '../dto/person.dto'
 
 import { backendUrl } from '../../backend.conf'
 import { ITelephone } from '../dto/telephone.dto';
+import { IContact } from '../dto/contact.dto';
 
 const httpOptions = new HttpHeaders()
 
@@ -33,6 +34,13 @@ export class PgQueryService {
   getTelephonesOfPerson(personId : number) {
     return this.http.post<ITelephone[]>(`${backendUrl}/main/get_person_telephones`,
     {personId},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
+
+  getTelephoneContacts(telephoneId :number) {
+    return this.http.post<IContact[]>(`${backendUrl}/main/get_telephone_contacts`,
+    {telephoneId},
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }

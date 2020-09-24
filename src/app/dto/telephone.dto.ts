@@ -8,3 +8,12 @@ export interface ITelephone {
     contacts: IContact[]
     person_id: number
 }
+
+export const emptyTelephone = {
+    id: null,
+    number: '',
+    oldnum: null,
+    internum: null,
+    contacts: [],
+    person_id: null
+  }
