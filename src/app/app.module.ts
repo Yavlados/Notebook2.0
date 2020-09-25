@@ -22,7 +22,8 @@ import { SearchEventComponent } from './main-page/search-event/search-event.comp
 import { SearchPipePipe } from './main-page/pipes/search-pipe.pipe';
 import { OptionsBarComponent } from './options-bar/options-bar.component';
 import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component';
-import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component'
+import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component';
+import { TelephoneManagerComponent } from './modalWindows/telephone-manager/telephone-manager.component'
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { PersonManagerComponent } from './modalWindows/person-manager/person-man
     OptionsBarComponent,
     EventManagerComponent,
     PersonManagerComponent,
+    TelephoneManagerComponent,
   ],
   imports: [
     BrowserModule,

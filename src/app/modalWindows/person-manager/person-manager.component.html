@@ -44,8 +44,10 @@
                     <div class="button">-</div>
                 </div>
                 <div class="body">
-                    <div *ngFor="let telephone of editablePerson.telephones">
-                        <div class="row telephoneRow" (click)="onTelephoneTableClicked(telephone)">
+                    <div *ngFor="let telephone of editablePerson.telephones;
+                    let telephoneIndex = index ">
+                        <div [class]="'row telephoneRow telephone'+telephoneIndex"
+                        (click)="onTelephoneTableClicked(telephone, telephoneIndex)">
                             <div class="phoneIcon">
                                 <img src="../../../assets/svgIcons/phone.svg">
                             </div>
@@ -54,13 +56,16 @@
                             </div>
                         </div>
                      </div>
+                     <input class="telephoneInput" type="text" (keydown)="onTelephoneInput($event)"/>
                 </div>
             </div>
             <div class="contactsTable">
                 <div class="title">
                     Contacts
-                    <div class="button">+</div>
-                    <div class="button">-</div>
+                    <div *ngIf="isTelephoneClicked" class="buttonLayout">
+                        <div class="button">+</div>
+                        <div class="button">-</div>
+                    </div>
                 </div>
                 <div class="body">
                     <div *ngFor="let contact of clickedTelephone.contacts">
@@ -72,9 +77,17 @@
                             <div class="contactAlias">{{contact.alias}}</div>
                         </div>
                     </div>
+                    <div *ngIf="isTelephoneClicked">
+                        <form [formGroup]="addContactForm" (ngSubmit)="onContactInput($event)">
+                            <input type="text" formControlName="telephone"/>
+                            <input type="text" formControlName="alias"/>
+                            <button type="submit">Add</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="button" (click)="onSaveButtonClicked()">Save</div>
     </div>
   </div>
 </div>

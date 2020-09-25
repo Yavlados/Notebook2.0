@@ -10,6 +10,10 @@ img {
   height: 2rem;
 }
 
+.selectedTelephoneRow{
+    background-color: #ffcb8e;
+}
+
 .personModalBackground {
   .personModalWindow {
     .personModalHeader {
@@ -50,6 +54,10 @@ img {
 
           .title {
             @include titleDefaults();
+
+            .buttonLayout{
+                display: flex;
+            }
           }
 
           .body {
