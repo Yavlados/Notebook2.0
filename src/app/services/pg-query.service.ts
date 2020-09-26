@@ -44,5 +44,12 @@ export class PgQueryService {
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
+
+  setUpdatePerson(person :IPerson){
+    return this.http.post<IPerson>(`${backendUrl}/main/set_update_person`,
+    {person},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
 }
 

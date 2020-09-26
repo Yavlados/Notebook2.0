@@ -4,6 +4,7 @@ import { ITelephone, emptyTelephone } from 'src/app/dto/telephone.dto';
 import { PgQueryService } from 'src/app/services/pg-query.service';
 import { IContact } from 'src/app/dto/contact.dto';
 import { FormGroup, FormControl } from '@angular/forms';
+import { stateFlag } from 'src/app/dto/flag.dto';
 
 export enum personManagerStates {
   editMode,
@@ -61,6 +62,9 @@ export class PersonManagerComponent implements OnInit {
     {
       this.pq.getTelephoneContacts(this.clickedTelephone.id)
       .subscribe((res: IContact[]) => {
+        res.map( cont => {
+          cont.state = stateFlag.isReaded
+        })
         this.clickedTelephone.contacts = res
       })
     }
@@ -99,7 +103,8 @@ export class PersonManagerComponent implements OnInit {
           internum: false,
           number: $input.value,
           oldnum: false,
-          person_id: this.editablePerson.id
+          person_id: this.editablePerson.id,
+          state: stateFlag.isAdded
         })
         $input.value = ''
       }
@@ -113,12 +118,43 @@ export class PersonManagerComponent implements OnInit {
         internum: false,
         oldnum: false,
         telephone_id: this.clickedTelephone.id,
-        number: this.addContactForm.value.telephone
+        number: this.addContactForm.value.telephone,
+        state: stateFlag.isAdded
       })
       this.addContactForm.reset()
   }
 
   onEditButtonClicked(){
-    console.log(this.editablePerson)
+    this.pq.setUpdatePerson(this.editablePerson)
+    .subscribe((res: any) => {
+      console.log(res)
+    })
+    this.closeModal()
+  }
+
+  onAddButtonClicked(){
+    
+    this.closeModal()
+  }
+
+  onTelephoneChanged(e : InputEvent, telephone: ITelephone){
+      const newTelephone = (<HTMLDivElement>e.target).innerText
+      telephone.number= newTelephone
+      if(telephone.state === stateFlag.isReaded)
+        telephone.state = stateFlag.isUpdated
+  }
+
+  onContactNumberChanged(e : InputEvent, contact: IContact){
+    const newTelephone = (<HTMLDivElement>e.target).innerText
+    contact.number= newTelephone
+    if(contact.state === stateFlag.isReaded)
+      contact.state = stateFlag.isUpdated
+  }
+
+  onContactAliasChanged(e : InputEvent, contact: IContact){
+    const newAlias = (<HTMLDivElement>e.target).innerText
+    contact.alias= newAlias
+    if(contact.state === stateFlag.isReaded)
+      contact.state = stateFlag.isUpdated
   }
 }

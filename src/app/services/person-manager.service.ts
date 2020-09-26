@@ -6,6 +6,7 @@ import {
 import { IPerson } from '../dto/person.dto';
 import { PgQueryService } from './pg-query.service';
 import { ITelephone } from '../dto/telephone.dto';
+import { stateFlag } from '../dto/flag.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class PersonManagerService {
       .subscribe((res: ITelephone[]) => {
         res.map(tel => {
           tel.contacts = []
+          tel.state = stateFlag.isReaded
         })
         person.telephones = res
       })

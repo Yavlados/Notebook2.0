@@ -46,12 +46,15 @@
                 <div class="body">
                     <div *ngFor="let telephone of editablePerson.telephones;
                     let telephoneIndex = index ">
-                        <div [class]="'row telephoneRow telephone'+telephoneIndex"
+                        <div [class]="'row telephoneRow telephone'+telephoneIndex +
+                        ' state'+ telephone.state"
                         (click)="onTelephoneTableClicked(telephone, telephoneIndex)">
                             <div class="phoneIcon">
                                 <img src="../../../assets/svgIcons/phone.svg">
                             </div>
-                            <div class="telephoneNumber">
+                            <div class="telephoneNumber" 
+                            contenteditable="true" 
+                            (input)="onTelephoneChanged($event, telephone)">
                                 {{telephone.number}}
                             </div>
                         </div>
@@ -68,13 +71,19 @@
                     </div>
                 </div>
                 <div class="body">
-                    <div *ngFor="let contact of clickedTelephone.contacts">
-                        <div class="row contactRow">
+                    <div *ngFor="let contact of clickedTelephone.contacts; let contactIndex = index">
+                        <div [class]="'row contactRow contact'+contactIndex+' state'+contact.state">
                             <div class="contactIcon">
                                 <img src="../../../assets/svgIcons/contact.svg">
                             </div>
-                            <div class="contactNumber">{{contact.number}}</div>
-                            <div class="contactAlias">{{contact.alias}}</div>
+                            <div class="contactNumber"
+                            contenteditable="true"
+                            (input)="onContactNumberChanged($event, contact)">
+                            {{contact.number}}</div>
+                            <div class="contactAlias"
+                            contenteditable="true" 
+                            (input)="onContactAliasChanged($event, contact)">
+                            {{contact.alias}}</div>
                         </div>
                     </div>
                     <div *ngIf="isTelephoneClicked">
@@ -87,7 +96,12 @@
                 </div>
             </div>
         </div>
-        <div class="button" (click)="onSaveButtonClicked()">Save</div>
+        <div *ngIf="isAddMode()">
+            <div class="button" (click)="onAddButtonClicked()">Add</div>
+        </div>
+        <div *ngIf="isEditMode()">
+            <div class="button" (click)="onEditButtonClicked()">Edit</div>
+        </div>
     </div>
   </div>
 </div>

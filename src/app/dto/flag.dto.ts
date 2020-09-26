@@ -1,4 +1,4 @@
-export enum stateFlags {
+export enum stateFlag {
     isReaded,
     isUpdated,
     isAdded
