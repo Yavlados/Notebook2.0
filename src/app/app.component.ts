@@ -6,6 +6,7 @@ import { EventManagerComponent } from './modalWindows/event-manager/event-manage
 
 import { PersonManagerService } from './services/person-manager.service'
 import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component';
+import { IPerson } from './dto/person.dto';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,10 @@ export class AppComponent implements AfterViewInit{
       return true
     else
       return false
+  }
+
+  addPersontoEvent(person :IPerson){
+    this.eventManager.addPersonToEvent(person)
   }
 
   openAddEvent(){

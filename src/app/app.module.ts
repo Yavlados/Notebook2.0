@@ -23,7 +23,6 @@ import { SearchPipePipe } from './main-page/pipes/search-pipe.pipe';
 import { OptionsBarComponent } from './options-bar/options-bar.component';
 import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component';
 import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component';
-import { TelephoneManagerComponent } from './modalWindows/telephone-manager/telephone-manager.component'
 
 
 @NgModule({
@@ -39,7 +38,6 @@ import { TelephoneManagerComponent } from './modalWindows/telephone-manager/tele
     OptionsBarComponent,
     EventManagerComponent,
     PersonManagerComponent,
-    TelephoneManagerComponent,
   ],
   imports: [
     BrowserModule,

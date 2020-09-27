@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/core';
 import { IPerson, emptyPerson } from '../../dto/person.dto'
 import { ITelephone, emptyTelephone } from 'src/app/dto/telephone.dto';
 import { PgQueryService } from 'src/app/services/pg-query.service';
@@ -20,9 +20,11 @@ export enum personManagerStates {
 export class PersonManagerComponent implements OnInit {
   element
   public pmState: personManagerStates
-  editablePerson: IPerson = emptyPerson
+  editablePerson: IPerson = {...emptyPerson}
   clickedTelephone: ITelephone = emptyTelephone
   isTelephoneClicked: boolean = false
+  @Output() personIsAdded :EventEmitter<IPerson> = new EventEmitter<IPerson>()
+  
 
   addContactForm = new FormGroup({
     telephone: new FormControl(''),
@@ -41,7 +43,7 @@ export class PersonManagerComponent implements OnInit {
   closeModal() {
     this.element.style.display = 'none'
     this.clickedTelephone=emptyTelephone
-    this.editablePerson=emptyPerson
+    this.editablePerson={...emptyPerson}
     this.isTelephoneClicked = false
 
   }
@@ -133,16 +135,18 @@ export class PersonManagerComponent implements OnInit {
   }
 
   onAddButtonClicked(){
-    
+    this.personIsAdded.emit(this.editablePerson)
     this.closeModal()
   }
 
   onTelephoneChanged(e : InputEvent, telephone: ITelephone){
+    
       const newTelephone = (<HTMLDivElement>e.target).innerText
       telephone.number= newTelephone
       if(telephone.state === stateFlag.isReaded)
         telephone.state = stateFlag.isUpdated
-  }
+      console.log(telephone)  
+      }
 
   onContactNumberChanged(e : InputEvent, contact: IContact){
     const newTelephone = (<HTMLDivElement>e.target).innerText
@@ -156,5 +160,10 @@ export class PersonManagerComponent implements OnInit {
     contact.alias= newAlias
     if(contact.state === stateFlag.isReaded)
       contact.state = stateFlag.isUpdated
+  }
+
+  personFieldIsEdited(){
+    if(this.editablePerson.state === stateFlag.isReaded)
+      this.editablePerson.state = stateFlag.isUpdated
   }
 }

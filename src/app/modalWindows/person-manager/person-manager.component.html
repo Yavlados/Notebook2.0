@@ -15,24 +15,28 @@
                 <span class="legend">Фамилия:</span>
                     <input type="text" 
                     [(ngModel)]="editablePerson.lastname"
+                    (keydown)="personFieldIsEdited()"
                     name="lastname"/>
             </div>
             <div class="row">
                 <span class="legend">Имя:</span>
                     <input type="text" 
                     [(ngModel)]="editablePerson.name"
+                    (keydown)="personFieldIsEdited()"
                     name="name"/>
             </div>
             <div class="row">
                 <span class="legend">Отчество:</span>
                     <input type="text" 
                     [(ngModel)]="editablePerson.midname"
+                    (keydown)="personFieldIsEdited()"
                     name="midname"/>
             </div>
             <div class="row">
                 <span class="legend">Кличка:</span>
                     <input type="text"
                     [(ngModel)]="editablePerson.alias"
+                    (keydown)="personFieldIsEdited()"
                     name="alias"/>
             </div>
         </form>
@@ -40,8 +44,7 @@
             <div class="telephonesTable">
                 <div class="title">
                     Telephones
-                    <div class="button">+</div>
-                    <div class="button">-</div>
+                    <div class="button">Remove</div>
                 </div>
                 <div class="body">
                     <div *ngFor="let telephone of editablePerson.telephones;
@@ -54,7 +57,7 @@
                             </div>
                             <div class="telephoneNumber" 
                             contenteditable="true" 
-                            (input)="onTelephoneChanged($event, telephone)">
+                            (blur)="onTelephoneChanged($event, telephone)">
                                 {{telephone.number}}
                             </div>
                         </div>
@@ -66,8 +69,7 @@
                 <div class="title">
                     Contacts
                     <div *ngIf="isTelephoneClicked" class="buttonLayout">
-                        <div class="button">+</div>
-                        <div class="button">-</div>
+                        <div class="button">Remove</div>
                     </div>
                 </div>
                 <div class="body">
@@ -78,11 +80,11 @@
                             </div>
                             <div class="contactNumber"
                             contenteditable="true"
-                            (input)="onContactNumberChanged($event, contact)">
+                            (blur)="onContactNumberChanged($event, contact)">
                             {{contact.number}}</div>
                             <div class="contactAlias"
                             contenteditable="true" 
-                            (input)="onContactAliasChanged($event, contact)">
+                            (blur)="onContactAliasChanged($event, contact)">
                             {{contact.alias}}</div>
                         </div>
                     </div>

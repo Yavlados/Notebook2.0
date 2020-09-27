@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import { IEvent, emptyEvent } from '../../dto/event.dto'
-import { IPerson } from '../../dto/person.dto'
+import { IPerson, emptyPerson } from '../../dto/person.dto'
 import { PersonManagerService } from 'src/app/services/person-manager.service';
+import { stateFlag } from 'src/app/dto/flag.dto';
 
 export enum eventManagerStates {
   editMode,
@@ -54,7 +55,13 @@ export class EventManagerComponent implements OnInit {
     this.editableEvent.persons.splice(personIndex, 1)
   }
 
-  AddPerson(){
+  openAddPerson(){
     this.pm.openAddPM()
   }
+
+  addPersonToEvent(person :IPerson){
+    person.state = stateFlag.isAdded
+    this.editableEvent.persons.push(person)
+  }
+
 }

@@ -3,7 +3,7 @@ import {
   PersonManagerComponent,
   personManagerStates
 } from '../modalWindows/person-manager/person-manager.component'
-import { IPerson } from '../dto/person.dto';
+import { IPerson, emptyPerson } from '../dto/person.dto';
 import { PgQueryService } from './pg-query.service';
 import { ITelephone } from '../dto/telephone.dto';
 import { stateFlag } from '../dto/flag.dto';
@@ -20,6 +20,7 @@ export class PersonManagerService {
   }
 
   openAddPM() {
+    this.component.editablePerson = {...emptyPerson, telephones:[]}
     this.component.pmState = personManagerStates.addMode
     this.component.element.style.display = 'block'
   }

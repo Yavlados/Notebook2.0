@@ -6,6 +6,7 @@
 </div>
 <app-event-manager #eventManager>
 </app-event-manager>
-<app-person-manager #personManager>
+<app-person-manager #personManager
+(personIsAdded)="addPersontoEvent($event)">
 </app-person-manager>
 <router-outlet></router-outlet>

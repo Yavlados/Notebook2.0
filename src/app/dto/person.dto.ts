@@ -1,4 +1,5 @@
 import {ITelephone} from './telephone.dto'
+import {stateFlag} from './flag.dto'
 
 export interface IPerson {
     id: number,
@@ -7,6 +8,7 @@ export interface IPerson {
     midname: string | null,
     alias: string | null
     telephones: ITelephone[]
+    state: stateFlag
 }
 
 export const IPersonHeaders = {
@@ -23,5 +25,6 @@ export const emptyPerson :IPerson = {
     midname: '',
     name: '',
     id: null,
-    telephones: []
+    telephones: [],
+    state: stateFlag.isReaded
   }
