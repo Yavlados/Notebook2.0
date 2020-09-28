@@ -49,6 +49,7 @@
                 <div class="body">
                     <div *ngFor="let telephone of editablePerson.telephones;
                     let telephoneIndex = index ">
+                    <div *ngIf="isNotRemoved(telephone)">
                         <div [class]="'row telephoneRow telephone'+telephoneIndex +
                         ' state'+ telephone.state"
                         (click)="onTelephoneTableClicked(telephone, telephoneIndex)">
@@ -61,6 +62,7 @@
                                 {{telephone.number}}
                             </div>
                         </div>
+                    </div>
                      </div>
                      <input class="telephoneInput" type="text" (keydown)="onTelephoneInput($event)"/>
                 </div>
@@ -74,18 +76,20 @@
                 </div>
                 <div class="body">
                     <div *ngFor="let contact of clickedTelephone.contacts; let contactIndex = index">
-                        <div [class]="'row contactRow contact'+contactIndex+' state'+contact.state">
-                            <div class="contactIcon">
-                                <img src="../../../assets/svgIcons/contact.svg">
+                        <div *ngIf="isNotRemoved(contact)">
+                            <div [class]="'row contactRow contact'+contactIndex+' state'+contact.state">
+                                <div class="contactIcon">
+                                    <img src="../../../assets/svgIcons/contact.svg">
+                                </div>
+                                <div class="contactNumber"
+                                contenteditable="true"
+                                (blur)="onContactNumberChanged($event, contact)">
+                                {{contact.number}}</div>
+                                <div class="contactAlias"
+                                contenteditable="true" 
+                                (blur)="onContactAliasChanged($event, contact)">
+                                {{contact.alias}}</div>
                             </div>
-                            <div class="contactNumber"
-                            contenteditable="true"
-                            (blur)="onContactNumberChanged($event, contact)">
-                            {{contact.number}}</div>
-                            <div class="contactAlias"
-                            contenteditable="true" 
-                            (blur)="onContactAliasChanged($event, contact)">
-                            {{contact.alias}}</div>
                         </div>
                     </div>
                     <div *ngIf="isTelephoneClicked">

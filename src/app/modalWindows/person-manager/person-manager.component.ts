@@ -166,4 +166,8 @@ export class PersonManagerComponent implements OnInit {
     if(this.editablePerson.state === stateFlag.isReaded)
       this.editablePerson.state = stateFlag.isUpdated
   }
+
+  isNotRemoved(obj :ITelephone | IContact){
+    return obj.state !== stateFlag.isRemoved
+  }
 }

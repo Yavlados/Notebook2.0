@@ -30,6 +30,7 @@ export class MainPageComponent implements OnInit {
       this.eventTable = res.map(ev => {
         ev = this.pg.trimManager(ev)
         ev['persons'] = []
+        ev['state'] = stateFlag.isReaded 
         return ev
       })
 
