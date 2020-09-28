@@ -1,4 +1,5 @@
 import {IPerson} from './person.dto'
+import {stateFlag} from './flag.dto'
 
 export interface IEvent {
     additional: string | null
@@ -10,6 +11,7 @@ export interface IEvent {
     id: number | null
     keeping_place: string | null
     persons: IPerson[]
+    state: stateFlag
 }
 
 export const IEventHeaders={
@@ -21,5 +23,17 @@ export const IEventHeaders={
     detention_date: 'Дата задержания',
     detention_time: 'Время задержания',
     additional: 'Дополнительная информация',
-
 }
+
+export const emptyEvent = {
+    additional: '',
+    category: '',
+    detention_by: '',
+    detention_date: '',
+    detention_reason: '',
+    detention_time: '',
+    id: null,
+    keeping_place: '',
+    persons: [] as IPerson[],
+    state: stateFlag.isReaded
+  }

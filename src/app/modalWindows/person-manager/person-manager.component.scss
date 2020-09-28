@@ -1,0 +1,85 @@
+@mixin titleDefaults {
+  font-size: 2rem;
+  margin: 1rem 0;
+  text-align: center;
+  display: flex;
+}
+
+img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.selectedTelephoneRow{
+    background-color: #ffcb8e;
+}
+
+.personModalBackground {
+  .personModalWindow {
+    .personModalHeader {
+    }
+
+    .personModalBody {
+      grid-template-columns: 1fr;
+
+      .tablesContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .telephonesTable {
+          justify-self: center;
+
+          .title {
+            @include titleDefaults();
+          }
+
+          .body {
+            .telephoneRow {
+                display: grid;
+                align-items: center;
+                margin: 1rem 0 1rem 2rem;
+                grid-template-columns: 0.2fr 1fr;
+              cursor: pointer;
+
+              .telephoneNumber {
+                margin-left: 1rem;
+                font-size: 1.2rem;
+              }
+            }
+          }
+        }
+
+        .contactsTable {
+          justify-self: center;
+
+          .title {
+            @include titleDefaults();
+
+            .buttonLayout{
+                display: flex;
+            }
+          }
+
+          .body {
+            .contactRow {
+              display: grid;
+              align-items: center;
+              margin: 1rem 0 1rem 2rem;
+              grid-template-columns: 0.2fr 1fr 1fr;
+
+              .contactNumber {
+                margin-left: 1rem;
+                font-size: 1.2rem;
+              }
+
+              .contactAlias {
+                margin-left: 1rem;
+                font-size: 1.2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

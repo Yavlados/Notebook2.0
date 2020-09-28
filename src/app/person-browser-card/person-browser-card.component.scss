@@ -4,6 +4,10 @@
   box-shadow: 10px 5px 5px #333333;
   background-color: #fff;
 
+  .removeButton {
+    display: inline-flex;
+  }
+
   .cardBody {
     padding: 0 1rem;
     font-weight: bolder;

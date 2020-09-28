@@ -4,6 +4,7 @@ import { IEvent, IEventHeaders } from '../dto/event.dto'
 import { IPerson } from '../dto/person.dto';
 import { PgService } from '../services/pg.service';
 import { EventManagerService } from '../services/event-manager.service';
+import { stateFlag } from '../dto/flag.dto';
 
 @Component({
   selector: 'app-main-page',
@@ -29,6 +30,7 @@ export class MainPageComponent implements OnInit {
       this.eventTable = res.map(ev => {
         ev = this.pg.trimManager(ev)
         ev['persons'] = []
+        ev['state'] = stateFlag.isReaded 
         return ev
       })
 
@@ -53,7 +55,11 @@ export class MainPageComponent implements OnInit {
     this.eventTableRowPainter(document.getElementsByClassName(`${index} cell`))
     this.pgQ.getPersonsOfEvent(e.id)
       .subscribe((res: IPerson[]) => {
-        res = res.map((per: IPerson) => per = this.pg.trimManager(per))
+        res = res.map((per: IPerson) => {
+          per = this.pg.trimManager(per)
+          per.state = stateFlag.isReaded
+          return per
+        })
         this.selectedEventPersons = e.persons = res
       })
   }

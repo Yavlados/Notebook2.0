@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EventManagerComponent, eventManagerStates, emptyEvent } from '../modalWindows/event-manager/event-manager.component';
-import { IEvent } from '../dto/event.dto';
+import { EventManagerComponent, eventManagerStates } from '../modalWindows/event-manager/event-manager.component';
+import { IEvent, emptyEvent } from '../dto/event.dto';
 
 @Injectable({
   providedIn: 'root'

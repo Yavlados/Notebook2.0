@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {RoutingModule} from './modules/routing/routing.module'
+import { RoutingModule } from './modules/routing/routing.module'
 
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
-import {PgService} from './services/pg.service';
-import {PgQueryService} from './services/pg-query.service'
-import {EventManagerService} from './services/event-manager.service'
+import { PgService } from './services/pg.service';
+import { PgQueryService } from './services/pg-query.service'
+import { EventManagerService } from './services/event-manager.service'
+import { PersonManagerService } from './services/person-manager.service'
 
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -20,7 +21,8 @@ import { PersonBrowserCardComponent } from './person-browser-card/person-browser
 import { SearchEventComponent } from './main-page/search-event/search-event.component';
 import { SearchPipePipe } from './main-page/pipes/search-pipe.pipe';
 import { OptionsBarComponent } from './options-bar/options-bar.component';
-import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component'
+import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component';
+import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component';
 
 
 @NgModule({
@@ -35,15 +37,19 @@ import { EventManagerComponent } from './modalWindows/event-manager/event-manage
     SearchPipePipe,
     OptionsBarComponent,
     EventManagerComponent,
+    PersonManagerComponent,
   ],
   imports: [
     BrowserModule,
     RoutingModule,
     FormsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [PgService, PgQueryService, EventManagerService],
+  providers: [PgService,
+    PgQueryService,
+    EventManagerService,
+    PersonManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

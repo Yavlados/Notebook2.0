@@ -1,4 +1,7 @@
 <div class="card">
+  <span *ngIf="removable">
+    <div class="button removeButton" (click)="removePerson()">Удалить</div>
+  </span>
   <div class="cardBody">
     <img src="../../../assets/svgIcons/person.svg" />
     <div class="personInfo">
@@ -9,7 +12,7 @@
         &laquo;{{ personData.alias }}&raquo;
     </div>
     <div class="footer">
-      <div class="button">Редактировать</div>
+      <div class="button" (click)="openEditPM(personData)">Редактировать</div>
       <div class="button">Просмотреть</div>
     </div>
   </div>

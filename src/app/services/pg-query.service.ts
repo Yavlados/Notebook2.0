@@ -7,6 +7,8 @@ import {IEvent} from '../dto/event.dto'
 import {IPerson} from '../dto/person.dto'
 
 import { backendUrl } from '../../backend.conf'
+import { ITelephone } from '../dto/telephone.dto';
+import { IContact } from '../dto/contact.dto';
 
 const httpOptions = new HttpHeaders()
 
@@ -25,6 +27,34 @@ export class PgQueryService {
   getPersonsOfEvent(eventId: number) {
     return this.http.post<IPerson[]>(`${backendUrl}/main/get_event_persons`,
     {eventId},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
+
+  getTelephonesOfPerson(personId : number) {
+    return this.http.post<ITelephone[]>(`${backendUrl}/main/get_person_telephones`,
+    {personId},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
+
+  getTelephoneContacts(telephoneId :number) {
+    return this.http.post<IContact[]>(`${backendUrl}/main/get_telephone_contacts`,
+    {telephoneId},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
+
+  setUpdatePerson(person :IPerson){
+    return this.http.post<IPerson>(`${backendUrl}/main/set_update_person`,
+    {person},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
+
+  setAddEvent(event :IEvent){
+    return this.http.post<IEvent>(`${backendUrl}/main/set_add_event`,
+    {event},
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
