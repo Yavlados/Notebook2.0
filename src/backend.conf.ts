@@ -1,6 +1,7 @@
 const backendOpts = {
     backendPort : 3000,
-    backendHost : 'localhost'
+    backendHost : 'localhost',
+    apiRoute: 'api'
 }
 
-export const backendUrl = `http://${backendOpts.backendHost}:${backendOpts.backendPort}`
+export const backendUrl = `http://${backendOpts.backendHost}:${backendOpts.backendPort}/${backendOpts.apiRoute}`

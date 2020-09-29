@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PgQueryService } from '../services/pg-query.service';
-import { IEvent, IEventHeaders } from '../dto/event.dto'
+import { IEvent, IEventHeaders, emptyEvent } from '../dto/event.dto'
 import { IPerson } from '../dto/person.dto';
 import { PgService } from '../services/pg.service';
 import { EventManagerService } from '../services/event-manager.service';
 import { stateFlag } from '../dto/flag.dto';
+import { EventTableService } from '../services/event-table.service';
 
 @Component({
   selector: 'app-main-page',
@@ -15,11 +16,12 @@ export class MainPageComponent implements OnInit {
   eventTable: IEvent[]
   eventTableHeaders = IEventHeaders
   searchNumber: null | number = null
-  selectedEventPersons: IPerson[]
+  selectedEvent: IEvent = emptyEvent
 
   constructor(public pgQ: PgQueryService,
     public pg: PgService,
-    public em: EventManagerService) { }
+    public em: EventManagerService,
+    public et: EventTableService) { }
 
   ngOnInit(): void {
     this.getAllEvents()
@@ -33,7 +35,6 @@ export class MainPageComponent implements OnInit {
         ev['state'] = stateFlag.isReaded 
         return ev
       })
-
     })
   }
 
@@ -52,6 +53,7 @@ export class MainPageComponent implements OnInit {
   }
 
   onEventTableClicked(e: IEvent, index: number) {
+    this.selectedEvent = this.et.selectedEvent = e
     this.eventTableRowPainter(document.getElementsByClassName(`${index} cell`))
     this.pgQ.getPersonsOfEvent(e.id)
       .subscribe((res: IPerson[]) => {
@@ -60,16 +62,16 @@ export class MainPageComponent implements OnInit {
           per.state = stateFlag.isReaded
           return per
         })
-        this.selectedEventPersons = e.persons = res
+        this.selectedEvent.persons = e.persons = res
       })
   }
 
   isEventGotPersons() {
-    return this.selectedEventPersons.length !== 0
+    return this.selectedEvent.persons.length !== 0
   }
 
   isEventSelected() {
-    return !! this.selectedEventPersons
+    return !! this.selectedEvent.persons
   }
 
   handleSearch(num: number){

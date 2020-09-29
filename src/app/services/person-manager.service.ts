@@ -7,6 +7,8 @@ import { IPerson, emptyPerson } from '../dto/person.dto';
 import { PgQueryService } from './pg-query.service';
 import { ITelephone } from '../dto/telephone.dto';
 import { stateFlag } from '../dto/flag.dto';
+import { IContact } from '../dto/contact.dto';
+import { PgService } from './pg.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,8 @@ import { stateFlag } from '../dto/flag.dto';
 export class PersonManagerService {
   component: PersonManagerComponent
 
-  constructor(public pq: PgQueryService) { }
+  constructor(public pq: PgQueryService,
+    public pg: PgService) { }
 
   openPM() {
   }
@@ -29,7 +32,11 @@ export class PersonManagerService {
     this.pq.getTelephonesOfPerson(person.id)
       .subscribe((res: ITelephone[]) => {
         res.map(tel => {
-          tel.contacts = []
+          tel = this.pg.trimManager(tel)
+          tel.contacts.map( (contact :IContact) =>{
+            contact = this.pg.trimManager(contact)
+            contact.state = stateFlag.isReaded
+          } )
           tel.state = stateFlag.isReaded
         })
         person.telephones = res

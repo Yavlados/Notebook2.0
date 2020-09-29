@@ -44,7 +44,11 @@
             <div class="telephonesTable">
                 <div class="title">
                     Telephones
-                    <div class="button">Remove</div>
+                    <div class="button"
+                    *ngIf="isTelephoneClicked"
+                    (click)="onTelephoneRemoveClicked()">
+                        Remove
+                    </div>
                 </div>
                 <div class="body">
                     <div *ngFor="let telephone of editablePerson.telephones;
@@ -70,14 +74,18 @@
             <div class="contactsTable">
                 <div class="title">
                     Contacts
-                    <div *ngIf="isTelephoneClicked" class="buttonLayout">
-                        <div class="button">Remove</div>
+                    <div *ngIf="isContactClicked" class="buttonLayout">
+                        <div class="button" (click)="onContactRemoveClicked()">
+                            Remove
+                        </div>
                     </div>
                 </div>
                 <div class="body">
-                    <div *ngFor="let contact of clickedTelephone.contacts; let contactIndex = index">
+                    <div *ngFor="let contact of clickedTelephone.contacts; 
+                    let contactIndex = index">
                         <div *ngIf="isNotRemoved(contact)">
-                            <div [class]="'row contactRow contact'+contactIndex+' state'+contact.state">
+                            <div [class]="'row contactRow contact'+contactIndex+' state'+contact.state"
+                            (click)="onContactTableClicked(contact, contactIndex)">
                                 <div class="contactIcon">
                                     <img src="../../../assets/svgIcons/contact.svg">
                                 </div>

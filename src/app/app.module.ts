@@ -12,6 +12,7 @@ import { PgService } from './services/pg.service';
 import { PgQueryService } from './services/pg-query.service'
 import { EventManagerService } from './services/event-manager.service'
 import { PersonManagerService } from './services/person-manager.service'
+import {EventTableService} from './services/event-table.service'
 
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -46,10 +47,13 @@ import { PersonManagerComponent } from './modalWindows/person-manager/person-man
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [PgService,
+  providers: [ 
+    PgService,
     PgQueryService,
     EventManagerService,
-    PersonManagerService],
+    PersonManagerService,
+    EventTableService
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
