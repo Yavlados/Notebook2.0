@@ -36,6 +36,10 @@ export class PersonManagerComponent implements OnInit {
     alias: new FormControl('')
   })
 
+  addTelephoneForm = new FormGroup({
+    telephone: new FormControl('')
+  })
+
   constructor(private el: ElementRef, public pq: PgQueryService) {
     this.element = el.nativeElement
   }
@@ -48,9 +52,10 @@ export class PersonManagerComponent implements OnInit {
   closeModal() {
     this.element.style.display = 'none'
     this.clickedTelephone = emptyTelephone
+    this.clickedContact = emptyContact
     this.editablePerson = { ...emptyPerson }
     this.isTelephoneClicked = false
-
+    this.isContactClicked = false
   }
 
   isEditMode() {
@@ -113,31 +118,40 @@ export class PersonManagerComponent implements OnInit {
       if (e.key === `Escape`) {
         $input.value = ''
       } else if (e.key === `Enter`) {
-        this.editablePerson.telephones.push({
-          contacts: [],
-          id: null,
-          internum: false,
-          number: $input.value,
-          oldnum: false,
-          person_id: this.editablePerson.id,
-          state: stateFlag.isAdded
-        })
-        $input.value = ''
+        this.addTelephoneClicked()
       }
     } else return
   }
 
+  addTelephoneClicked(){
+    if(!! this.addTelephoneForm.value.telephone) {
+      this.editablePerson.telephones.push({
+        contacts: [],
+        id: null,
+        internum: false,
+        number: this.addTelephoneForm.value.telephone,
+        oldnum: false,
+        person_id: this.editablePerson.id,
+        state: stateFlag.isAdded
+      })
+      this.addTelephoneForm.reset()
+    }
+  }
+
   onContactInput() {
-    this.clickedTelephone.contacts.push({
-      alias: this.addContactForm.value.alias,
-      id: null,
-      internum: false,
-      oldnum: false,
-      telephone_id: this.clickedTelephone.id,
-      number: this.addContactForm.value.telephone,
-      state: stateFlag.isAdded
-    })
-    this.addContactForm.reset()
+    if(!! this.addContactForm.value.telephone.trim() &&
+    !! this.addContactForm.value.alias.trim()){
+      this.clickedTelephone.contacts.push({
+        alias: this.addContactForm.value.alias,
+        id: null,
+        internum: false,
+        oldnum: false,
+        telephone_id: this.clickedTelephone.id,
+        number: this.addContactForm.value.telephone,
+        state: stateFlag.isAdded
+      })
+      this.addContactForm.reset()
+    }
   }
 
   onEditButtonClicked() {
@@ -200,6 +214,7 @@ export class PersonManagerComponent implements OnInit {
         1
       )
     }
+    this.clickedContact = emptyContact
   }
 
   onTelephoneRemoveClicked() {
@@ -213,6 +228,7 @@ export class PersonManagerComponent implements OnInit {
         1
       )
     }
+    this.clickedTelephone = emptyTelephone
   }
 
 }
