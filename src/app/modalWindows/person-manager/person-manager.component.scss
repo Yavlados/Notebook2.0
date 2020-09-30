@@ -14,9 +14,19 @@ img {
     background-color: #ffcb8e;
 }
 
+.selectedContactRow{
+  background-color: #ffcb8e;
+}
+
 .personModalBackground {
   .personModalWindow {
+    width: 45%;
     .personModalHeader {
+
+      .personCloseButton{
+        position: absolute;
+        right: 29%;
+      }
     }
 
     .personModalBody {
@@ -39,11 +49,19 @@ img {
                 align-items: center;
                 margin: 1rem 0 1rem 2rem;
                 grid-template-columns: 0.2fr 1fr;
-              cursor: pointer;
+                cursor: pointer;
 
               .telephoneNumber {
                 margin-left: 1rem;
                 font-size: 1.2rem;
+              }
+            }
+
+            .telephonesTableInputLayout{
+              display: flex;
+
+              .telephoneInput{
+                margin: 0.5rem 0;
               }
             }
           }
@@ -79,6 +97,14 @@ img {
             }
           }
         }
+      }
+
+      .personSubmitButton{
+        position: absolute;
+        bottom: 6%;
+        left: 47%;
+        width: 5rem;
+        text-align: center;
       }
     }
   }

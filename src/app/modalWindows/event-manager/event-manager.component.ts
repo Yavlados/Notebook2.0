@@ -45,9 +45,17 @@ export class EventManagerComponent implements OnInit {
     return this.emState === eventManagerStates.addMode
   }
 
-  onFormSubmit() {
+  onAddEventClicked() {
     this.editableEvent.state = stateFlag.isAdded
     this.pq.setAddEvent(this.editableEvent)
+    .subscribe( res => {
+      window.location.reload()
+    } )
+  }
+
+  onEditEventClicked(){
+    this.editableEvent.state = stateFlag.isUpdated
+    this.pq.setUpdateEvent(this.editableEvent)
     .subscribe( res => {
       window.location.reload()
     } )
@@ -60,7 +68,8 @@ export class EventManagerComponent implements OnInit {
   }
 
   onRemovePerson(personIndex: number){
-    this.editableEvent.persons.splice(personIndex, 1)
+    this.editableEvent.persons[personIndex].state = stateFlag.isRemoved
+    // this.editableEvent.persons.splice(personIndex, 1)
   }
 
   openAddPerson(){
@@ -75,5 +84,9 @@ export class EventManagerComponent implements OnInit {
   eventFieldIsEdited(){
    if(this.editableEvent.state === stateFlag.isReaded)
     this.editableEvent.state = stateFlag.isUpdated
+  }
+
+  isPersonNotRemoved( person :IPerson){
+    return person.state !== stateFlag.isRemoved
   }
 }

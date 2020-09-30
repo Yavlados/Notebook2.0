@@ -1,77 +1,96 @@
 <div class="modalBackground" (keydown)="onKeyDown($event)">
-    <div class="modalWindow">
-        <div class="modalHeader">
-            <div class="button closeButton" (click)="closeModal()">X</div>
-            <div *ngIf="isAddMode(); else editMode">
-                <div class="title">Создание нового события</div>
-            </div>
-            <ng-template #editMode>
-                <div *ngIf="isEditMode()">
-                    <div class="title">Редактирование события</div>
-                </div>
-            </ng-template>
+  <div class="modalWindow">
+    <div class="modalHeader">
+      <div class="button closeButton" (click)="closeModal()">X</div>
+      <div *ngIf="isAddMode(); else editMode">
+        <div class="title">Создание нового события</div>
+      </div>
+      <ng-template #editMode>
+        <div *ngIf="isEditMode()">
+          <div class="title">Редактирование события</div>
         </div>
-        <div class="modalBody">
-            <form
-            id="EMform">
-                <div class="row">
-                    <span class="legend">Категория:</span>
-                    <input type="text" 
-                    [(ngModel)]="editableEvent.category"
-                    (keydown)="eventFieldIsEdited()"
-                    name="category"/>
-                </div>
-
-                <div class="row">
-                    <span class="legend">Кем задержан:</span>
-                    <input type="text" 
-                    [(ngModel)]="editableEvent.detention_by"
-                    (keydown)="eventFieldIsEdited()"
-                    name="detention_by"/>
-                </div>
-
-                <div class="row">
-                    <span class="legend">Причина задержания:</span>
-                    <input type="text" 
-                    [(ngModel)]="editableEvent.detention_reason"
-                    (keydown)="eventFieldIsEdited()"
-                    name="detention_reason"/>
-                </div>
-
-                <div class="row">
-                    <span class="legend">Место хранения:</span>
-                    <input type="text" 
-                    [(ngModel)]="editableEvent.keeping_place"
-                    (keydown)="eventFieldIsEdited()"
-                    name="keeping_place"/>
-                </div>
-
-                <div class="row">
-                    <span class="legend">Дополнительная информация:</span>
-                    <textarea type="text" 
-                    [(ngModel)]="editableEvent.additional"
-                    (keydown)="eventFieldIsEdited()"
-                    name="additional"
-                    ></textarea>
-                </div>
-                <button type="submit" (click)="onFormSubmit()">Login</button>
-            </form> 
-            <div class="personBrowser">
-                <div class="title">
-                </div> 
-                <div class="buttonsLayout">
-                    <div class="button" (click)="openAddPerson()">+</div>
-                </div>
-                <div class="body" *ngFor="let person of editableEvent.persons;
-                let personIndex = index">
-                    <app-person-browser-card
-                    [personData]="person"
-                    [personIndex]="personIndex"
-                    [removable]="true"
-                    (deletePerson)="onRemovePerson($event)">
-                    </app-person-browser-card>
-                </div>
-            </div>
-        </div>
+      </ng-template>
     </div>
+    <div class="modalBody">
+      <form id="EMform">
+        <div class="row">
+          <span class="legend">Категория:</span>
+          <input
+            type="text"
+            [(ngModel)]="editableEvent.category"
+            (keydown)="eventFieldIsEdited()"
+            name="category"
+          />
+        </div>
+
+        <div class="row">
+          <span class="legend">Кем задержан:</span>
+          <input
+            type="text"
+            [(ngModel)]="editableEvent.detention_by"
+            (keydown)="eventFieldIsEdited()"
+            name="detention_by"
+          />
+        </div>
+
+        <div class="row">
+          <span class="legend">Причина задержания:</span>
+          <input
+            type="text"
+            [(ngModel)]="editableEvent.detention_reason"
+            (keydown)="eventFieldIsEdited()"
+            name="detention_reason"
+          />
+        </div>
+
+        <div class="row">
+          <span class="legend">Место хранения:</span>
+          <input
+            type="text"
+            [(ngModel)]="editableEvent.keeping_place"
+            (keydown)="eventFieldIsEdited()"
+            name="keeping_place"
+          />
+        </div>
+
+        <div class="row">
+          <span class="legend">Дополнительная информация:</span>
+          <textarea
+            type="text"
+            [(ngModel)]="editableEvent.additional"
+            (keydown)="eventFieldIsEdited()"
+            name="additional"
+          ></textarea>
+        </div>
+        <div *ngIf="isAddMode(); else isEditButton">
+            <button type="submit" (click)="onAddEventClicked()">Add</button>
+        </div>
+        <ng-template #isEditButton>
+            <button type="submit" (click)="onEditEventClicked()">Edit</button>
+
+        </ng-template>
+
+      </form>
+      <div class="personBrowser">
+        <div class="title"></div>
+        <div class="buttonsLayout">
+          <div class="button" (click)="openAddPerson()">+</div>
+        </div>
+        <div
+          class="body"
+          *ngFor="let person of editableEvent.persons; let personIndex = index"
+        >
+          <div *ngIf="isPersonNotRemoved(person)">
+            <app-person-browser-card
+              [personData]="person"
+              [personIndex]="personIndex"
+              [removable]="true"
+              (deletePerson)="onRemovePerson($event)"
+            >
+            </app-person-browser-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/co
 import { IPerson, emptyPerson } from '../../dto/person.dto'
 import { ITelephone, emptyTelephone } from 'src/app/dto/telephone.dto';
 import { PgQueryService } from 'src/app/services/pg-query.service';
-import { IContact } from 'src/app/dto/contact.dto';
+import { IContact, emptyContact } from 'src/app/dto/contact.dto';
 import { FormGroup, FormControl } from '@angular/forms';
 import { stateFlag } from 'src/app/dto/flag.dto';
 
@@ -20,15 +20,24 @@ export enum personManagerStates {
 export class PersonManagerComponent implements OnInit {
   element
   public pmState: personManagerStates
-  editablePerson: IPerson = {...emptyPerson}
+  editablePerson: IPerson = { ...emptyPerson }
+
   clickedTelephone: ITelephone = emptyTelephone
+  clickedContact: IContact = emptyContact
+
   isTelephoneClicked: boolean = false
-  @Output() personIsAdded :EventEmitter<IPerson> = new EventEmitter<IPerson>()
-  
+  isContactClicked: boolean = false
+
+  @Output() personIsAdded: EventEmitter<IPerson> = new EventEmitter<IPerson>()
+
 
   addContactForm = new FormGroup({
     telephone: new FormControl(''),
     alias: new FormControl('')
+  })
+
+  addTelephoneForm = new FormGroup({
+    telephone: new FormControl('')
   })
 
   constructor(private el: ElementRef, public pq: PgQueryService) {
@@ -42,10 +51,11 @@ export class PersonManagerComponent implements OnInit {
 
   closeModal() {
     this.element.style.display = 'none'
-    this.clickedTelephone=emptyTelephone
-    this.editablePerson={...emptyPerson}
+    this.clickedTelephone = emptyTelephone
+    this.clickedContact = emptyContact
+    this.editablePerson = { ...emptyPerson }
     this.isTelephoneClicked = false
-
+    this.isContactClicked = false
   }
 
   isEditMode() {
@@ -58,22 +68,16 @@ export class PersonManagerComponent implements OnInit {
 
   onTelephoneTableClicked(telephone: ITelephone, index: number) {
     this.clickedTelephone = telephone
-    this.tablePainter(index)
-    //NEEDS TO FIX
-    if(telephone.contacts.length === 0)
-    {
-      this.pq.getTelephoneContacts(this.clickedTelephone.id)
-      .subscribe((res: IContact[]) => {
-        res.map( cont => {
-          cont.state = stateFlag.isReaded
-        })
-        this.clickedTelephone.contacts = res
-      })
-    }
-
+    this.telephoneTablePainter(index)
+    console.log(this.clickedTelephone)
   }
 
-  tablePainter(index: number) {
+  onContactTableClicked(contact: IContact, index: number) {
+    this.contactTablePainter(index)
+    this.clickedContact = contact
+  }
+
+  telephoneTablePainter(index: number) {
     Array.from(document.getElementsByClassName(`selectedTelephoneRow`)).map($el => {
       $el.className =
         $el.className.substring(
@@ -83,37 +87,60 @@ export class PersonManagerComponent implements OnInit {
     })
 
     const $telephoneRow = document.getElementsByClassName(`telephone${index}`)[0]
-    if(!! $telephoneRow)
-    {
+    if (!!$telephoneRow) {
       $telephoneRow.className += ' selectedTelephoneRow'
       this.isTelephoneClicked = true
+      this.isContactClicked = false
     }
 
   }
 
-  onTelephoneInput(e :KeyboardEvent){
-    if(e.key === `Enter` || e.key === `Escape`)
-    {
-      const $input: HTMLInputElement = <HTMLInputElement>(e.target)
-      if(e.key === `Escape`)
-      {
-        $input.value = ''
-      }else if(e.key === `Enter`){
-        this.editablePerson.telephones.push({
-          contacts:[],
-          id: null,
-          internum: false,
-          number: $input.value,
-          oldnum: false,
-          person_id: this.editablePerson.id,
-          state: stateFlag.isAdded
-        })
-        $input.value = ''
-      }
-    }else return
+  contactTablePainter(index: number) {
+    Array.from(document.getElementsByClassName(`selectedContactRow`)).map($el => {
+      $el.className =
+        $el.className.substring(
+          0,
+          $el.className.indexOf('selectedContactRow') - 1
+        )
+    })
+
+    const $contactRow = document.getElementsByClassName(`contact${index}`)[0]
+    if (!!$contactRow) {
+      $contactRow.className += ' selectedContactRow'
+      this.isContactClicked = true
+    }
+
   }
 
-  onContactInput(){
+  onTelephoneInput(e: KeyboardEvent) {
+    if (e.key === `Enter` || e.key === `Escape`) {
+      const $input: HTMLInputElement = <HTMLInputElement>(e.target)
+      if (e.key === `Escape`) {
+        $input.value = ''
+      } else if (e.key === `Enter`) {
+        this.addTelephoneClicked()
+      }
+    } else return
+  }
+
+  addTelephoneClicked(){
+    if(!! this.addTelephoneForm.value.telephone) {
+      this.editablePerson.telephones.push({
+        contacts: [],
+        id: null,
+        internum: false,
+        number: this.addTelephoneForm.value.telephone,
+        oldnum: false,
+        person_id: this.editablePerson.id,
+        state: stateFlag.isAdded
+      })
+      this.addTelephoneForm.reset()
+    }
+  }
+
+  onContactInput() {
+    if(!! this.addContactForm.value.telephone.trim() &&
+    !! this.addContactForm.value.alias.trim()){
       this.clickedTelephone.contacts.push({
         alias: this.addContactForm.value.alias,
         id: null,
@@ -124,50 +151,84 @@ export class PersonManagerComponent implements OnInit {
         state: stateFlag.isAdded
       })
       this.addContactForm.reset()
+    }
   }
 
-  onEditButtonClicked(){
+  onEditButtonClicked() {
     this.pq.setUpdatePerson(this.editablePerson)
-    .subscribe((res: any) => {
-      console.log(res)
-    })
+      .subscribe((res: any) => {
+        console.log(res)
+      })
     this.closeModal()
   }
 
-  onAddButtonClicked(){
+  onAddButtonClicked() {
     this.personIsAdded.emit(this.editablePerson)
     this.closeModal()
   }
 
-  onTelephoneChanged(e : InputEvent, telephone: ITelephone){
-    
-      const newTelephone = (<HTMLDivElement>e.target).innerText
-      telephone.number= newTelephone
-      if(telephone.state === stateFlag.isReaded)
-        telephone.state = stateFlag.isUpdated
-      console.log(telephone)  
-      }
-
-  onContactNumberChanged(e : InputEvent, contact: IContact){
+  onTelephoneChanged(e: InputEvent, telephone: ITelephone) {
     const newTelephone = (<HTMLDivElement>e.target).innerText
-    contact.number= newTelephone
-    if(contact.state === stateFlag.isReaded)
-      contact.state = stateFlag.isUpdated
+    if(telephone.number !== newTelephone){
+      telephone.number = newTelephone
+      if (telephone.state === stateFlag.isReaded)
+        telephone.state = stateFlag.isUpdated
+    }
   }
 
-  onContactAliasChanged(e : InputEvent, contact: IContact){
+  onContactNumberChanged(e: InputEvent, contact: IContact) {
+    const newTelephone = (<HTMLDivElement>e.target).innerText
+    if(newTelephone !== contact.number) {
+      contact.number = newTelephone
+      if (contact.state === stateFlag.isReaded)
+        contact.state = stateFlag.isUpdated
+    }
+  }
+
+  onContactAliasChanged(e: InputEvent, contact: IContact) {
     const newAlias = (<HTMLDivElement>e.target).innerText
-    contact.alias= newAlias
-    if(contact.state === stateFlag.isReaded)
-      contact.state = stateFlag.isUpdated
+    if(contact.alias !== newAlias){
+      contact.alias = newAlias
+      if (contact.state === stateFlag.isReaded)
+        contact.state = stateFlag.isUpdated
+    }
   }
 
-  personFieldIsEdited(){
-    if(this.editablePerson.state === stateFlag.isReaded)
+  personFieldIsEdited() {
+    if (this.editablePerson.state === stateFlag.isReaded)
       this.editablePerson.state = stateFlag.isUpdated
   }
 
-  isNotRemoved(obj :ITelephone | IContact){
+  isNotRemoved(obj: ITelephone | IContact) {
     return obj.state !== stateFlag.isRemoved
   }
+
+  onContactRemoveClicked() {
+    this.isContactClicked = false
+    if (this.clickedContact.state === stateFlag.isReaded)
+      this.clickedContact.state = stateFlag.isRemoved
+    else if (this.clickedContact.state === stateFlag.isAdded
+      || this.clickedContact.state === stateFlag.isUpdated) {
+      this.clickedTelephone.contacts.splice(
+        this.clickedTelephone.contacts.indexOf(this.clickedContact),
+        1
+      )
+    }
+    this.clickedContact = emptyContact
+  }
+
+  onTelephoneRemoveClicked() {
+    this.isTelephoneClicked = false
+    if (this.clickedTelephone.state === stateFlag.isReaded)
+      this.clickedTelephone.state = stateFlag.isRemoved
+    else if (this.clickedTelephone.state === stateFlag.isAdded
+      || this.clickedTelephone.state === stateFlag.isUpdated) {
+      this.editablePerson.telephones.splice(
+        this.editablePerson.telephones.indexOf(this.clickedTelephone),
+        1
+      )
+    }
+    this.clickedTelephone = emptyTelephone
+  }
+
 }

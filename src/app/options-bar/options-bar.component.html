@@ -1,4 +1,7 @@
 <div class="optionsBar">
     <div class="button" (click)="onAddEventClicked()">Добавить ЗК</div>
     <div class="button">Поиск</div>
+    <div class="button" 
+    *ngIf="isEventSelected()"
+    (click)="onRemoveEventClicked()">Удалить ЗК</div>
 </div>

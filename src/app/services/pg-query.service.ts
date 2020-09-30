@@ -20,40 +20,54 @@ export class PgQueryService {
   constructor(private http: HttpClient, private router :Router) { }
 
   getAllEvents(){
-   return this.http.get<IEvent[]>(`${backendUrl}/main/get_all_events`)
+   return this.http.get<IEvent[]>(`${backendUrl}/get_all_events`)
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   getPersonsOfEvent(eventId: number) {
-    return this.http.post<IPerson[]>(`${backendUrl}/main/get_event_persons`,
+    return this.http.post<IPerson[]>(`${backendUrl}/get_event_persons`,
     {eventId},
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   getTelephonesOfPerson(personId : number) {
-    return this.http.post<ITelephone[]>(`${backendUrl}/main/get_person_telephones`,
+    return this.http.post<ITelephone[]>(`${backendUrl}/get_person_telephones`,
     {personId},
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   getTelephoneContacts(telephoneId :number) {
-    return this.http.post<IContact[]>(`${backendUrl}/main/get_telephone_contacts`,
+    return this.http.post<IContact[]>(`${backendUrl}/get_telephone_contacts`,
     {telephoneId},
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   setUpdatePerson(person :IPerson){
-    return this.http.post<IPerson>(`${backendUrl}/main/set_update_person`,
+    return this.http.post<IPerson>(`${backendUrl}/set_update_person`,
     {person},
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   setAddEvent(event :IEvent){
-    return this.http.post<IEvent>(`${backendUrl}/main/set_add_event`,
+    return this.http.post<IEvent>(`${backendUrl}/set_add_event`,
+    {event},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
+
+  setUpdateEvent(event :IEvent){
+    return this.http.post<IEvent>(`${backendUrl}/set_update_event`,
+    {event},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
+
+  setRemoveEvent(event :IEvent){
+    return this.http.post<IEvent>(`${backendUrl}/set_remove_event`,
     {event},
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
