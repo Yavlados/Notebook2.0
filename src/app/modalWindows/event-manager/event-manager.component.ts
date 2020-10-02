@@ -2,9 +2,9 @@ import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import { IEvent, emptyEvent } from '../../dto/event.dto'
 import { IPerson, emptyPerson } from '../../dto/person.dto'
-import { PersonManagerService } from 'src/app/services/person-manager.service';
-import { stateFlag } from 'src/app/dto/flag.dto';
-import { PgQueryService } from 'src/app/services/pg-query.service';
+import { PersonManagerService } from '../../services/person-manager.service';
+import { stateFlag } from '../../dto/flag.dto';
+import { PgQueryService } from '../../services/pg-query.service';
 import { Router } from '@angular/router';
 
 export enum eventManagerStates {
@@ -80,7 +80,7 @@ export class EventManagerComponent implements OnInit {
     person.state = stateFlag.isAdded
     this.editableEvent.persons.push(person)
   }
- 
+
   eventFieldIsEdited(){
    if(this.editableEvent.state === stateFlag.isReaded)
     this.editableEvent.state = stateFlag.isUpdated

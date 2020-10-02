@@ -9,6 +9,7 @@ import {IPerson} from '../dto/person.dto'
 import { backendUrl } from '../../backend.conf'
 import { ITelephone } from '../dto/telephone.dto';
 import { IContact } from '../dto/contact.dto';
+import { CryptoManagerService } from './crypto-manager.service';
 
 const httpOptions = new HttpHeaders()
 
@@ -17,7 +18,9 @@ const httpOptions = new HttpHeaders()
 })
 export class PgQueryService {
 
-  constructor(private http: HttpClient, private router :Router) { }
+  constructor(private http: HttpClient,
+    private router :Router,
+    public cm : CryptoManagerService) { }
 
   getAllEvents(){
    return this.http.get<IEvent[]>(`${backendUrl}/get_all_events`)
@@ -26,7 +29,7 @@ export class PgQueryService {
 
   getPersonsOfEvent(eventId: number) {
     return this.http.post<IPerson[]>(`${backendUrl}/get_event_persons`,
-    {eventId},
+    this.cm.encode({eventId}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }

@@ -7,6 +7,7 @@ import { IContact } from '../dto/contact.dto';
 import { ITelephone } from '../dto/telephone.dto';
 import { IEvent } from '../dto/event.dto';
 import { IPerson } from '../dto/person.dto';
+import { CryptoManagerService } from './crypto-manager.service';
 
 const httpOptions = new HttpHeaders()
 
@@ -17,7 +18,9 @@ export class PgService {
 
   loginState = false
 
-  constructor( private http: HttpClient, private router :Router ) { }
+  constructor( private http: HttpClient,
+    private router :Router,
+    public cm : CryptoManagerService) { }
 
   login(loginData:any){
     this.http.post<any>(`${backendUrl}/login`,
@@ -26,9 +29,12 @@ export class PgService {
     .pipe(catchError(async (err) => console.log(err)))
     .subscribe( (res) => {
       console.log(res)
-      const { isLogged, msg} = res
-      if(isLogged){
+      const { isLogged, uuid} = res
+
+      if(isLogged && uuid) {
+        this.cm.upService(uuid)
         this.loginState = true
+
         this.router.navigate(['main'])
       }
     })
