@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, Output, EventEmitter } from '@angular/core';
 import {EventManagerComponent} from '../modalWindows/event-manager/event-manager.component'
 import { EventTableService } from '../services/event-table.service';
+import { ImportExportService } from '../services/import-export.service';
+
+
+
 @Component({
   selector: 'app-options-bar',
   templateUrl: './options-bar.component.html',
@@ -9,8 +13,12 @@ import { EventTableService } from '../services/event-table.service';
 export class OptionsBarComponent implements OnInit {
 
   @Output() ondAddEvent: EventEmitter<any> = new EventEmitter<any>()
+  @Output() onImport : EventEmitter<any> = new EventEmitter<any>()
 
-  constructor(public et :EventTableService) { }
+  constructor(public et :EventTableService,
+    public ie: ImportExportService) {
+
+    }
 
   ngOnInit(): void {
   }
@@ -28,5 +36,9 @@ export class OptionsBarComponent implements OnInit {
     .subscribe( res=> {
       window.location.reload()
     })
+  }
+
+  onImportClicked(){
+    this.onImport.emit()
   }
 }

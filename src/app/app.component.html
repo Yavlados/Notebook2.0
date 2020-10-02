@@ -2,6 +2,7 @@
 <div *ngIf="checkRouterState()">
     <app-options-bar
     (ondAddEvent)="openAddEvent()"
+    (onImport)="openImport()"
     ></app-options-bar>
 </div>
 <app-event-manager #eventManager>
@@ -9,4 +10,7 @@
 <app-person-manager #personManager
 (personIsAdded)="addPersontoEvent($event)">
 </app-person-manager>
+<app-import-export-manager #importExportManager>
+</app-import-export-manager>
+
 <router-outlet></router-outlet>

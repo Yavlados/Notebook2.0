@@ -21,12 +21,13 @@ export class PgService {
 
   login(loginData:any){
     this.http.post<any>(`${backendUrl}/login`,
-    loginData, 
+    loginData,
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
     .subscribe( (res) => {
+      console.log(res)
       const { isLogged, msg} = res
-      if(isLogged){ 
+      if(isLogged){
         this.loginState = true
         this.router.navigate(['main'])
       }

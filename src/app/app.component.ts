@@ -7,6 +7,8 @@ import { EventManagerComponent } from './modalWindows/event-manager/event-manage
 import { PersonManagerService } from './services/person-manager.service'
 import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component';
 import { IPerson } from './dto/person.dto';
+import { ImportExportService } from './services/import-export.service';
+import { ImportExportManagerComponent } from './modalWindows/import-export-manager/import-export-manager.component';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +19,17 @@ export class AppComponent implements AfterViewInit{
   title = 'Записная книжка 2.0';
   @ViewChild('eventManager') eventManager:EventManagerComponent
   @ViewChild('personManager') personManager: PersonManagerComponent
+  @ViewChild('importExportManager') ieManager : ImportExportManagerComponent
 
-  constructor (public pg: PgService, 
+  constructor (public pg: PgService,
     public em: EventManagerService,
-    public pm: PersonManagerService) {
+    public pm: PersonManagerService,
+    public ie: ImportExportService) {
   }
   ngAfterViewInit(): void {
     this.em.component = this.eventManager
     this.pm.component = this.personManager
+    this.ie.component = this.ieManager
   }
 
   checkRouterState(){
@@ -40,5 +45,9 @@ export class AppComponent implements AfterViewInit{
 
   openAddEvent(){
     this.em.openAddEM()
+  }
+
+  openImport(){
+    this.ie.openImport()
   }
 }

@@ -72,5 +72,12 @@ export class PgQueryService {
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
+
+  importEvents(importData : any){
+    return this.http.post<IEvent>(`${backendUrl}/import_events`,
+    {importData},
+    { headers: httpOptions,  responseType: 'json' })
+    .pipe(catchError(async (err) => console.log(err)))
+  }
 }
 

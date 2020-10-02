@@ -19,9 +19,6 @@ export class PersonManagerService {
   constructor(public pq: PgQueryService,
     public pg: PgService) { }
 
-  openPM() {
-  }
-
   openAddPM() {
     this.component.editablePerson = {...emptyPerson, telephones:[]}
     this.component.pmState = personManagerStates.addMode

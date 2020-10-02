@@ -1,10 +1,10 @@
 import { Component, OnInit, ElementRef, EventEmitter, Output } from '@angular/core';
 import { IPerson, emptyPerson } from '../../dto/person.dto'
-import { ITelephone, emptyTelephone } from 'src/app/dto/telephone.dto';
-import { PgQueryService } from 'src/app/services/pg-query.service';
-import { IContact, emptyContact } from 'src/app/dto/contact.dto';
+import { ITelephone, emptyTelephone } from '../../dto/telephone.dto';
+import { PgQueryService } from '../../services/pg-query.service';
+import { IContact, emptyContact } from '../../dto/contact.dto';
 import { FormGroup, FormControl } from '@angular/forms';
-import { stateFlag } from 'src/app/dto/flag.dto';
+import { stateFlag } from '../../dto/flag.dto';
 
 export enum personManagerStates {
   editMode,
@@ -29,7 +29,6 @@ export class PersonManagerComponent implements OnInit {
   isContactClicked: boolean = false
 
   @Output() personIsAdded: EventEmitter<IPerson> = new EventEmitter<IPerson>()
-
 
   addContactForm = new FormGroup({
     telephone: new FormControl(''),
