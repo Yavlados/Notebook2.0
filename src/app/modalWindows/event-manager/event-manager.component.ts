@@ -47,17 +47,19 @@ export class EventManagerComponent implements OnInit {
 
   onAddEventClicked() {
     this.editableEvent.state = stateFlag.isAdded
-    this.pq.setAddEvent(this.editableEvent)
+    const sub = this.pq.setAddEvent(this.editableEvent)
     .subscribe( res => {
       window.location.reload()
+      sub.unsubscribe()
     } )
   }
 
   onEditEventClicked(){
     this.editableEvent.state = stateFlag.isUpdated
-    this.pq.setUpdateEvent(this.editableEvent)
+    const sub = this.pq.setUpdateEvent(this.editableEvent)
     .subscribe( res => {
       window.location.reload()
+      sub.unsubscribe()
     } )
   }
 

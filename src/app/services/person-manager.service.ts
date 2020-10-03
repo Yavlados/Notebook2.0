@@ -9,6 +9,7 @@ import { ITelephone } from '../dto/telephone.dto';
 import { stateFlag } from '../dto/flag.dto';
 import { IContact } from '../dto/contact.dto';
 import { PgService } from './pg.service';
+import { CryptoManagerService } from './crypto-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class PersonManagerService {
   component: PersonManagerComponent
 
   constructor(public pq: PgQueryService,
-    public pg: PgService) { }
+    public pg: PgService,
+    public cm : CryptoManagerService) { }
 
   openAddPM() {
     this.component.editablePerson = {...emptyPerson, telephones:[]}
@@ -26,9 +28,10 @@ export class PersonManagerService {
   }
 
   openEditPM(person: IPerson) {
-    this.pq.getTelephonesOfPerson(person.id)
-      .subscribe((res: ITelephone[]) => {
-        res.map(tel => {
+    const sub = this.pq.getTelephonesOfPerson(person.id)
+      .subscribe((res: Uint8Array[]) => {
+        let telephones :ITelephone[] = (this.cm.decode(res)).rows
+        telephones.map(tel => {
           tel = this.pg.trimManager(tel)
           tel.contacts.map( (contact :IContact) =>{
             contact = this.pg.trimManager(contact)
@@ -36,7 +39,8 @@ export class PersonManagerService {
           } )
           tel.state = stateFlag.isReaded
         })
-        person.telephones = res
+        person.telephones = telephones
+        sub.unsubscribe()
       })
     this.component.pmState = personManagerStates.editMode
     this.component.editablePerson = person

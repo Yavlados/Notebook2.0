@@ -32,9 +32,10 @@ export class OptionsBarComponent implements OnInit {
   }
 
   onRemoveEventClicked(){
-    this.et.onRemoveClicked()
+    const sub = this.et.onRemoveClicked()
     .subscribe( res=> {
       window.location.reload()
+      sub.unsubscribe()
     })
   }
 

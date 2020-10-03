@@ -15,6 +15,7 @@ import { PersonManagerService } from './services/person-manager.service'
 import {EventTableService} from './services/event-table.service'
 import { ImportExportService } from './services/import-export.service'
 import {CryptoManagerService} from './services/crypto-manager.service'
+import { CookieService } from 'ngx-cookie-service'
 
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -58,7 +59,8 @@ import { ImportExportManagerComponent } from './modalWindows/import-export-manag
     PersonManagerService,
     EventTableService,
     ImportExportService,
-    CryptoManagerService
+    CryptoManagerService,
+    CookieService
    ],
   bootstrap: [AppComponent]
 })

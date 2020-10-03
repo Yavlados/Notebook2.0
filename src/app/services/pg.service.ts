@@ -23,7 +23,7 @@ export class PgService {
     public cm : CryptoManagerService) { }
 
   login(loginData:any){
-    this.http.post<any>(`${backendUrl}/login`,
+    const sub = this.http.post<any>(`${backendUrl}/login`,
     loginData,
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
@@ -36,6 +36,7 @@ export class PgService {
         this.loginState = true
 
         this.router.navigate(['main'])
+        sub.unsubscribe()
       }
     })
   }

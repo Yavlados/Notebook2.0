@@ -23,62 +23,62 @@ export class PgQueryService {
     public cm : CryptoManagerService) { }
 
   getAllEvents(){
-   return this.http.get<IEvent[]>(`${backendUrl}/get_all_events`)
+   return this.http.get<Uint8Array[]>(`${backendUrl}/get_all_events`)
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   getPersonsOfEvent(eventId: number) {
-    return this.http.post<IPerson[]>(`${backendUrl}/get_event_persons`,
+    return this.http.post<Uint8Array[]>(`${backendUrl}/get_event_persons`,
     this.cm.encode({eventId}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   getTelephonesOfPerson(personId : number) {
-    return this.http.post<ITelephone[]>(`${backendUrl}/get_person_telephones`,
-    {personId},
+    return this.http.post<Uint8Array[]>(`${backendUrl}/get_person_telephones`,
+    this.cm.encode({personId}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   getTelephoneContacts(telephoneId :number) {
-    return this.http.post<IContact[]>(`${backendUrl}/get_telephone_contacts`,
-    {telephoneId},
+    return this.http.post<Uint8Array[]>(`${backendUrl}/get_telephone_contacts`,
+    this.cm.encode({telephoneId}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   setUpdatePerson(person :IPerson){
-    return this.http.post<IPerson>(`${backendUrl}/set_update_person`,
-    {person},
+    return this.http.post<Uint8Array>(`${backendUrl}/set_update_person`,
+    this.cm.encode({person}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   setAddEvent(event :IEvent){
-    return this.http.post<IEvent>(`${backendUrl}/set_add_event`,
-    {event},
+    return this.http.post<Uint8Array>(`${backendUrl}/set_add_event`,
+    this.cm.encode({event}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   setUpdateEvent(event :IEvent){
-    return this.http.post<IEvent>(`${backendUrl}/set_update_event`,
-    {event},
+    return this.http.post<Uint8Array>(`${backendUrl}/set_update_event`,
+    this.cm.encode({event}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   setRemoveEvent(event :IEvent){
-    return this.http.post<IEvent>(`${backendUrl}/set_remove_event`,
-    {event},
+    return this.http.post<Uint8Array>(`${backendUrl}/set_remove_event`,
+    this.cm.encode({event}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }
 
   importEvents(importData : any){
-    return this.http.post<IEvent>(`${backendUrl}/import_events`,
-    {importData},
+    return this.http.post<Uint8Array>(`${backendUrl}/import_events`,
+    this.cm.encode({importData}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
   }

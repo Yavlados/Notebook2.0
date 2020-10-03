@@ -154,9 +154,10 @@ export class PersonManagerComponent implements OnInit {
   }
 
   onEditButtonClicked() {
-    this.pq.setUpdatePerson(this.editablePerson)
+    const sub = this.pq.setUpdatePerson(this.editablePerson)
       .subscribe((res: any) => {
         console.log(res)
+        sub.unsubscribe()
       })
     this.closeModal()
   }

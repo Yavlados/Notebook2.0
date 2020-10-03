@@ -6,6 +6,7 @@ import { PgService } from '../services/pg.service';
 import { EventManagerService } from '../services/event-manager.service';
 import { stateFlag } from '../dto/flag.dto';
 import { EventTableService } from '../services/event-table.service';
+import { CryptoManagerService } from '../services/crypto-manager.service';
 
 @Component({
   selector: 'app-main-page',
@@ -21,20 +22,23 @@ export class MainPageComponent implements OnInit {
   constructor(public pgQ: PgQueryService,
     public pg: PgService,
     public em: EventManagerService,
-    public et: EventTableService) { }
+    public et: EventTableService,
+    public cm: CryptoManagerService) { }
 
   ngOnInit(): void {
     this.getAllEvents()
   }
 
   getAllEvents() {
-    this.pgQ.getAllEvents().subscribe((res: IEvent[]) => {
-      this.eventTable = res.map(ev => {
+    const sub = this.pgQ.getAllEvents().subscribe((res: Uint8Array[]) => {
+      let events : IEvent[] = (this.cm.decode(res)).rows
+      this.eventTable = events.map(ev => {
         ev = this.pg.trimManager(ev)
         ev['persons'] = []
-        ev['state'] = stateFlag.isReaded 
+        ev['state'] = stateFlag.isReaded
         return ev
       })
+      sub.unsubscribe()
     })
   }
 
@@ -55,14 +59,17 @@ export class MainPageComponent implements OnInit {
   onEventTableClicked(e: IEvent, index: number) {
     this.selectedEvent = this.et.selectedEvent = e
     this.eventTableRowPainter(document.getElementsByClassName(`${index} cell`))
-    this.pgQ.getPersonsOfEvent(e.id)
-      .subscribe((res: IPerson[]) => {
-        res = res.map((per: IPerson) => {
+    const sub = this.pgQ.getPersonsOfEvent(e.id)
+      .subscribe((res: Uint8Array[]) => {
+        let persons :IPerson[] = (this.cm.decode(res)).rows
+
+        persons = persons.map((per: IPerson) => {
           per = this.pg.trimManager(per)
           per.state = stateFlag.isReaded
           return per
         })
-        this.selectedEvent.persons = e.persons = res
+        this.selectedEvent.persons = e.persons = persons
+        sub.unsubscribe()
       })
   }
 
@@ -77,7 +84,7 @@ export class MainPageComponent implements OnInit {
   handleSearch(num: number){
     this.searchNumber = num
   }
-  
+
   handleClear(){
     this.searchNumber = null
   }

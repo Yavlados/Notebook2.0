@@ -7,16 +7,25 @@ import * as aesjs from 'aes-js'
 import { backendUrl } from '../../backend.conf';
 import { catchError } from 'rxjs/operators';
 
+import {CookieService} from 'ngx-cookie-service'
+
 const httpOptions = new HttpHeaders()
 @Injectable({
   providedIn: 'root'
 })
 export class CryptoManagerService {
-  aes                         // AES crypto
+  aes // AES crypto
   updatingTime: number = 600000 //10 minutes
   cryptoService: Observable<number> = interval(this.updatingTime)
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private cs : CookieService) {
+      if( ! !!this.aes )
+        if(this.cs.check('hash')){
+          debugger
+          this.aes = new aesjs.AES(this.passwordToArrayHandler(this.cs.get('hash')))
+        }
+     }
 
   upService(uuid: string) {
     this.setKey(uuid)
@@ -24,30 +33,34 @@ export class CryptoManagerService {
   }
 
   updateKey() {
-    this.http.post<any>(`${backendUrl}/crypto_service`,
+    const sub = this.http.post<any>(`${backendUrl}/crypto_service`,
       { code: statusCode.updateKey },
       { headers: httpOptions, responseType: 'json' })
       .pipe(catchError(async (err) => console.log(err)))
-      .subscribe(res =>{
+      .subscribe(res => {
         console.log(res)
-        if(res.uuid)
+        if (res.uuid)
           this.setKey(res.uuid)
+
+        sub.unsubscribe()
       })
   }
 
   setKey(uuid: string) {
     const slicedKey = uuid.slice(3, 8) + uuid.slice(24, -1)
     this.aes = new aesjs.AES(this.passwordToArrayHandler(slicedKey))   //Have setted key to encoder
+    this.cs.set('hash', slicedKey)
 
-    this.http.post<any>(`${backendUrl}/crypto_service`,
+    const sub = this.http.post<any>(`${backendUrl}/crypto_service`,
       { code: statusCode.keyIsUpdated },
       { headers: httpOptions, responseType: 'json' })
       .pipe(catchError(async (err) => console.log(err)))
-      .subscribe(res =>{
-      } )
+      .subscribe(res => {
+        sub.unsubscribe()
+      })
   }
 
-  encode(data: any, password = undefined) {
+  encode(data: any, password = undefined) : Uint8Array[] {
     const data_string = JSON.stringify(data)
     let data_array = Array.from(aesjs.utils.utf8.toBytes(data_string))
 
@@ -60,6 +73,35 @@ export class CryptoManagerService {
     }
     return encoding_Result
   }
+
+  decode(data, password = undefined) {
+    const isPasswordRight = (data, aes) => {
+      const batch = data.slice(0, 16)
+      const encryptedBytes = aes.decrypt(batch)
+      if (encryptedBytes[0] !== 123 // char {
+        && encryptedBytes[0] !== 91 // char [
+      ) {
+        return false
+      }
+      return true
+    }
+
+    data = this.arraySizeHandler(data)
+
+    if (isPasswordRight(data, this.aes)) {
+      let decodingResult = []
+      for (let i = 1; i <= (data.length / 16); i++) {
+        const batch = data.slice(((i - 1) * 16), (i * 16))
+        const encryptedBytes = this.aes.decrypt(batch)
+        decodingResult = decodingResult.concat([...encryptedBytes])
+      }
+      let strResult = (aesjs.utils.utf8.fromBytes(decodingResult)).replace(/\0/g, '')
+      let res = JSON.parse(strResult)
+      return res
+    }
+    else return 'Error: Password is wrong'
+  }
+
 
   private arraySizeHandler = (data_array) => {
     if (data_array.length % 16 !== 0) {
