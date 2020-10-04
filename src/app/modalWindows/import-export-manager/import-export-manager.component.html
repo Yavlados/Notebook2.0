@@ -6,10 +6,10 @@
     <div class="modalBody">
       <div class="importContent" *ngIf="isImportMode()">
 
-        <input type="checkbox"  [(ngModel)] = "isWithPassword" id="isWithPasswordInput">
+        <input type="checkbox"  [(ngModel)] = "isWithPassword" id="isWithPasswordInput" (change)="isWithPasswordChanged()">
         <label for="isWithPasswordInput">Использовать пароль?</label>
 
-        <input type="text" size="16" [(ngModel)]="encodingPassword" *ngIf="isWithPassword">
+        <input type="password" size="16" [(ngModel)]="encodingPassword" *ngIf="isWithPassword">
         <div class="button" (click)="onImportAllClicked()">Импорт всех записных книг</div>
       </div>
     </div>

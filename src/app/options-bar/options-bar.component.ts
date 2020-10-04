@@ -14,6 +14,7 @@ export class OptionsBarComponent implements OnInit {
 
   @Output() ondAddEvent: EventEmitter<any> = new EventEmitter<any>()
   @Output() onImport : EventEmitter<any> = new EventEmitter<any>()
+  @Output() onExport : EventEmitter<any> = new EventEmitter<any>()
 
   constructor(public et :EventTableService,
     public ie: ImportExportService) {
@@ -41,5 +42,9 @@ export class OptionsBarComponent implements OnInit {
 
   onImportClicked(){
     this.onImport.emit()
+  }
+
+  onExportClicked(){
+    this.onExport.emit()
   }
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, interval } from 'rxjs';
+import { Observable, interval, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { statusCode } from '../dto/crypto.dto'
 
 import * as aesjs from 'aes-js'
 import { backendUrl } from '../../backend.conf';
-import { catchError } from 'rxjs/operators';
+import { catchError, share } from 'rxjs/operators';
 
-import {CookieService} from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie-service'
+import { PgQueryService } from './pg-query.service';
 
 const httpOptions = new HttpHeaders()
 @Injectable({
@@ -16,27 +17,33 @@ const httpOptions = new HttpHeaders()
 export class CryptoManagerService {
   aes // AES crypto
   updatingTime: number = 600000 //10 minutes
-  cryptoService: Observable<number> = interval(this.updatingTime)
+  cryptoService$: Observable<number> = interval(this.updatingTime)
+  cryptoServiceSub: Subscription
 
   constructor(private http: HttpClient,
-    private cs : CookieService) {
-      if( ! !!this.aes )
-        if(this.cs.check('hash')){
-          debugger
-          this.aes = new aesjs.AES(this.passwordToArrayHandler(this.cs.get('hash')))
-        }
-     }
+    private cs: CookieService ) {
+      console.log(this.cryptoServiceSub)
+    if (! !!this.aes)
+      if (this.cs.check('hash')) {
+        this.aes = new aesjs.AES(this.passwordToArrayHandler(this.cs.get('hash')))
+        if(! !!this.cryptoServiceSub)
+          this.cryptoServiceSub = this.cryptoService$.subscribe(_ => this.updateKey())
+      }
+  }
 
   upService(uuid: string) {
     this.setKey(uuid)
-    this.cryptoService.subscribe(_ => this.updateKey())
+    if(! !!this.cryptoServiceSub)
+      this.cryptoServiceSub = this.cryptoService$.subscribe(_ => this.updateKey())
   }
 
   updateKey() {
+
     const sub = this.http.post<any>(`${backendUrl}/crypto_service`,
       { code: statusCode.updateKey },
       { headers: httpOptions, responseType: 'json' })
-      .pipe(catchError(async (err) => console.log(err)))
+      .pipe(catchError(async (err) => console.log(err)),
+        share())
       .subscribe(res => {
         console.log(res)
         if (res.uuid)
@@ -60,7 +67,7 @@ export class CryptoManagerService {
       })
   }
 
-  encode(data: any, password = undefined) : Uint8Array[] {
+  encode(data: any, password = undefined): Uint8Array[] {
     const data_string = JSON.stringify(data)
     let data_array = Array.from(aesjs.utils.utf8.toBytes(data_string))
 
@@ -118,5 +125,4 @@ export class CryptoManagerService {
     encoder.encodeInto(password, password_array)
     return password_array
   }
-
 }

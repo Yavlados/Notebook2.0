@@ -33,7 +33,6 @@ export class MainPageComponent implements OnInit {
     const sub = this.pgQ.getAllEvents().subscribe((res: Uint8Array[]) => {
       let events : IEvent[] = (this.cm.decode(res)).rows
       this.eventTable = events.map(ev => {
-        ev = this.pg.trimManager(ev)
         ev['persons'] = []
         ev['state'] = stateFlag.isReaded
         return ev
@@ -64,7 +63,6 @@ export class MainPageComponent implements OnInit {
         let persons :IPerson[] = (this.cm.decode(res)).rows
 
         persons = persons.map((per: IPerson) => {
-          per = this.pg.trimManager(per)
           per.state = stateFlag.isReaded
           return per
         })

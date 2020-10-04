@@ -32,9 +32,7 @@ export class PersonManagerService {
       .subscribe((res: Uint8Array[]) => {
         let telephones :ITelephone[] = (this.cm.decode(res)).rows
         telephones.map(tel => {
-          tel = this.pg.trimManager(tel)
           tel.contacts.map( (contact :IContact) =>{
-            contact = this.pg.trimManager(contact)
             contact.state = stateFlag.isReaded
           } )
           tel.state = stateFlag.isReaded

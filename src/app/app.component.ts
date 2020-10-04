@@ -50,4 +50,8 @@ export class AppComponent implements AfterViewInit{
   openImport(){
     this.ie.openImport()
   }
+
+  openExport(){
+    this.ie.openExport()
+  }
 }

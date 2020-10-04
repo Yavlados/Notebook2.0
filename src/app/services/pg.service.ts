@@ -3,10 +3,6 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {backendUrl} from '../../backend.conf'
-import { IContact } from '../dto/contact.dto';
-import { ITelephone } from '../dto/telephone.dto';
-import { IEvent } from '../dto/event.dto';
-import { IPerson } from '../dto/person.dto';
 import { CryptoManagerService } from './crypto-manager.service';
 
 const httpOptions = new HttpHeaders()
@@ -39,13 +35,5 @@ export class PgService {
         sub.unsubscribe()
       }
     })
-  }
-
-  trimManager( resObj: any) : any {
-    Object.keys(resObj).map( key => {
-      if(!! resObj[key] && typeof resObj[key] === 'string')
-      resObj[key] = resObj[key].trim()
-    })
-    return resObj
   }
 }

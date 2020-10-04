@@ -77,7 +77,7 @@ export class PgQueryService {
   }
 
   importEvents(importData : any){
-    return this.http.post<Uint8Array>(`${backendUrl}/import_events`,
+    return this.http.post<any>(`${backendUrl}/import_events`,
     this.cm.encode({importData}),
     { headers: httpOptions,  responseType: 'json' })
     .pipe(catchError(async (err) => console.log(err)))
