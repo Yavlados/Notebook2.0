@@ -15,7 +15,7 @@ const httpOptions = new HttpHeaders()
 })
 export class CryptoManagerService {
   aes // AES crypto
-  updatingTime: number = 5000 //600000 //10 minutes
+  updatingTime: number = 600000 //10 minutes
   cryptoService$: Observable<number> = interval(this.updatingTime)
   cryptoServiceSub: Subscription
 

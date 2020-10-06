@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { IEvent } from '../dto/event.dto'
-import { PgQueryService } from './pg-query.service'
+import { PgQueryService } from './pg-services/pg-query.service'
 
 @Injectable({
   providedIn: 'root',

@@ -7,7 +7,7 @@ import {
 } from '@angular/core'
 import { IPerson, emptyPerson } from '../../dto/person.dto'
 import { ITelephone, emptyTelephone } from '../../dto/telephone.dto'
-import { PgQueryService } from '../../services/pg-query.service'
+import { PgQueryService } from '../../services/pg-services/pg-query.service'
 import { IContact, emptyContact } from '../../dto/contact.dto'
 import { FormGroup, FormControl } from '@angular/forms'
 import { stateFlag } from '../../dto/flag.dto'

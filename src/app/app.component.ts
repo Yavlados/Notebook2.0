@@ -1,13 +1,13 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core'
-import { PgService } from './services/pg.service'
+import { PgService } from './services/pg-services/pg.service'
 
-import { EventManagerService } from './services/event-manager.service'
+import { EventManagerService } from './services/window-managers/event-manager.service'
 import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component'
 
-import { PersonManagerService } from './services/person-manager.service'
+import { PersonManagerService } from './services/window-managers/person-manager.service'
 import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component'
 import { IPerson } from './dto/person.dto'
-import { ImportExportService } from './services/import-export.service'
+import { ImportExportService } from './services/window-managers/import-export.service'
 import { ImportExportManagerComponent } from './modalWindows/import-export-manager/import-export-manager.component'
 
 @Component({

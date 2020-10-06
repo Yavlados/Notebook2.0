@@ -8,7 +8,7 @@ import {
 } from '@angular/core'
 import { EventManagerComponent } from '../modalWindows/event-manager/event-manager.component'
 import { EventTableService } from '../services/event-table.service'
-import { ImportExportService } from '../services/import-export.service'
+import { ImportExportService } from '../services/window-managers/import-export.service'
 
 @Component({
   selector: 'app-options-bar',

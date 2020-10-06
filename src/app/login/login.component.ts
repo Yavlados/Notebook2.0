@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { PgService } from '../services/pg.service'
+import { PgService } from '../services/pg-services/pg.service'
 import { FormGroup, FormControl } from '@angular/forms'
 import { devloginData } from './devLoginDefaults'
 

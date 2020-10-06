@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import {
   ImportExportManagerComponent,
   ieManagerStates,
-} from '../modalWindows/import-export-manager/import-export-manager.component'
+} from '../../modalWindows/import-export-manager/import-export-manager.component'
 
 @Injectable({
   providedIn: 'root',

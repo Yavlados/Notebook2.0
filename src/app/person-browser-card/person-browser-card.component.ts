@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { IPerson } from '../dto/person.dto'
-import { PersonManagerService } from '../services/person-manager.service'
+import { PersonManagerService } from '../services/window-managers/person-manager.service'
 @Component({
   selector: 'app-person-browser-card',
   templateUrl: './person-browser-card.component.html',
