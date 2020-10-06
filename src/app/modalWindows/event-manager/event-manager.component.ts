@@ -1,31 +1,33 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core'
 import { FormGroup, FormControl } from '@angular/forms'
 import { IEvent, emptyEvent } from '../../dto/event.dto'
 import { IPerson, emptyPerson } from '../../dto/person.dto'
-import { PersonManagerService } from 'src/app/services/person-manager.service';
-import { stateFlag } from 'src/app/dto/flag.dto';
-import { PgQueryService } from 'src/app/services/pg-query.service';
-import { Router } from '@angular/router';
+import { PersonManagerService } from '../../services/window-managers/person-manager.service'
+import { stateFlag } from '../../dto/flag.dto'
+import { PgQueryService } from '../../services/pg-services/pg-query.service'
+import { Router } from '@angular/router'
 
 export enum eventManagerStates {
   editMode,
-  addMode
+  addMode,
 }
 
 @Component({
   selector: 'app-event-manager',
   templateUrl: './event-manager.component.html',
-  styleUrls: ['./event-manager.component.scss']
+  styleUrls: ['./event-manager.component.scss'],
 })
 export class EventManagerComponent implements OnInit {
   element
   public emState: eventManagerStates
   editableEvent: IEvent = emptyEvent
 
-  constructor(private el: ElementRef,
+  constructor(
+    private el: ElementRef,
     private pm: PersonManagerService,
-    public pq : PgQueryService,
-    private router : Router) {
+    public pq: PgQueryService,
+    private router: Router
+  ) {
     this.element = el.nativeElement
   }
   ngOnInit(): void {
@@ -47,46 +49,45 @@ export class EventManagerComponent implements OnInit {
 
   onAddEventClicked() {
     this.editableEvent.state = stateFlag.isAdded
-    this.pq.setAddEvent(this.editableEvent)
-    .subscribe( res => {
+    const sub = this.pq.setAddEvent(this.editableEvent).subscribe((res) => {
       window.location.reload()
-    } )
+      sub.unsubscribe()
+    })
   }
 
-  onEditEventClicked(){
+  onEditEventClicked() {
     this.editableEvent.state = stateFlag.isUpdated
-    this.pq.setUpdateEvent(this.editableEvent)
-    .subscribe( res => {
+    const sub = this.pq.setUpdateEvent(this.editableEvent).subscribe((res) => {
       window.location.reload()
-    } )
+      sub.unsubscribe()
+    })
   }
 
   onKeyDown(e: KeyboardEvent) {
-    if (e.key === 'Escape')
-      this.closeModal();
+    if (e.key === 'Escape') this.closeModal()
     else return
   }
 
-  onRemovePerson(personIndex: number){
+  onRemovePerson(personIndex: number) {
     this.editableEvent.persons[personIndex].state = stateFlag.isRemoved
     // this.editableEvent.persons.splice(personIndex, 1)
   }
 
-  openAddPerson(){
+  openAddPerson() {
     this.pm.openAddPM()
   }
 
-  addPersonToEvent(person :IPerson){
+  addPersonToEvent(person: IPerson) {
     person.state = stateFlag.isAdded
     this.editableEvent.persons.push(person)
   }
- 
-  eventFieldIsEdited(){
-   if(this.editableEvent.state === stateFlag.isReaded)
-    this.editableEvent.state = stateFlag.isUpdated
+
+  eventFieldIsEdited() {
+    if (this.editableEvent.state === stateFlag.isReaded)
+      this.editableEvent.state = stateFlag.isUpdated
   }
 
-  isPersonNotRemoved( person :IPerson){
+  isPersonNotRemoved(person: IPerson) {
     return person.state !== stateFlag.isRemoved
   }
 }

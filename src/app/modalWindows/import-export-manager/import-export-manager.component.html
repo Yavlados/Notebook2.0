@@ -1,0 +1,60 @@
+<div class="modalBackground">
+  <div class="modalWindow">
+    <div class="modalHeader">
+      <div class="button closeButton" (click)="closeModal()">X</div>
+    </div>
+    <div class="modalBody">
+      <div class="importContent" *ngIf="isImportMode()">
+        <div class="passwordBlock">
+          <div class="checkboxBlock">
+            <input
+              type="checkbox"
+              [(ngModel)]="isWithPassword"
+              id="isWithPasswordInput"
+              (change)="isWithPasswordChanged()"
+            />
+            <label for="isWithPasswordInput">Использовать пароль?</label>
+          </div>
+          <input
+            type="password"
+            size="16"
+            [(ngModel)]="encodingPassword"
+            *ngIf="isWithPassword"
+          />
+        </div>
+        <div class="buttonsBlock">
+          <div class="button" (click)="onImportAllClicked()">
+            Импорт всех записных книг
+          </div>
+        </div>
+      </div>
+      <div class="exportContent" *ngIf="isExportMode()">
+        <div class="inputFileBlock">
+          <label for="file">Выберите файл</label>
+          <input
+            type="file"
+            id="file"
+            accept=".nbd, .nbds"
+            (change)="handleFileInput($event.target.files)"
+          />
+        </div>
+
+        <div class="isSecuredFileBlock" *ngIf="isSecuredFile()">
+          <label for="passwordExport">Данный файл защищен паролем</label>
+          <input
+            type="password"
+            id="passwordExport"
+            [(ngModel)]="encodingPassword"
+          />
+        </div>
+        <div
+          class="button"
+          *ngIf="isFileUploaded()"
+          (click)="onExportFileClicked()"
+        >
+          Загрузить файл
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+$successColor: #7ea04d;
+$warnColor: #edc988;
+$errorColor: #ff4b5c;
+
+.alertContainer {
+  width: 350px;
+  height: 150px;
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+  padding: 1rem;
+  border-radius: 7px;
+  &.success {
+    background-color: $successColor;
+  }
+
+  &.warn {
+    background-color: $warnColor;
+  }
+
+  &.error {
+    background-color: $errorColor;
+  }
+
+  .closeButton {
+    position: absolute;
+    right: 1%;
+    top: 5%;
+  }
+
+  .alertHeader {
+  }
+
+  .alertBody {
+  }
+}

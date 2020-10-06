@@ -1,12 +1,15 @@
 <h1 class="header">Записная книжка 2.0</h1>
 <div *ngIf="checkRouterState()">
-    <app-options-bar
+  <app-options-bar
     (ondAddEvent)="openAddEvent()"
-    ></app-options-bar>
+    (onImport)="openImport()"
+    (onExport)="openExport()"
+  ></app-options-bar>
 </div>
-<app-event-manager #eventManager>
-</app-event-manager>
-<app-person-manager #personManager
-(personIsAdded)="addPersontoEvent($event)">
+<app-event-manager #eventManager> </app-event-manager>
+<app-person-manager #personManager (personIsAdded)="addPersontoEvent($event)">
 </app-person-manager>
+<app-import-export-manager #importExportManager> </app-import-export-manager>
+<app-alert #alert></app-alert>
+
 <router-outlet></router-outlet>
