@@ -6,9 +6,14 @@ import { EventManagerComponent } from './modalWindows/event-manager/event-manage
 
 import { PersonManagerService } from './services/window-managers/person-manager.service'
 import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component'
+
 import { IPerson } from './dto/person.dto'
+
 import { ImportExportService } from './services/window-managers/import-export.service'
 import { ImportExportManagerComponent } from './modalWindows/import-export-manager/import-export-manager.component'
+
+import { AlertComponent } from './alert/alert.component'
+import { AlertManagerService } from './services/window-managers/alert-manager.service'
 
 @Component({
   selector: 'app-root',
@@ -20,17 +25,21 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('eventManager') eventManager: EventManagerComponent
   @ViewChild('personManager') personManager: PersonManagerComponent
   @ViewChild('importExportManager') ieManager: ImportExportManagerComponent
+  @ViewChild('alert') alert: AlertComponent
 
   constructor(
     public pg: PgService,
     public em: EventManagerService,
     public pm: PersonManagerService,
-    public ie: ImportExportService
+    public ie: ImportExportService,
+    public as: AlertManagerService
   ) {}
+
   ngAfterViewInit(): void {
     this.em.component = this.eventManager
     this.pm.component = this.personManager
     this.ie.component = this.ieManager
+    this.as.component = this.alert
   }
 
   checkRouterState() {

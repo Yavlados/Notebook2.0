@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core'
 import { PgQueryService } from '../../services/pg-services/pg-query.service'
 import { CryptoManagerService } from '../../services/crypto-manager.service'
 import * as FileSaver from 'file-saver'
+import { AlertManagerService } from '../../services/window-managers/alert-manager.service'
 
 export enum ieManagerStates {
   importMode,
@@ -23,7 +24,8 @@ export class ImportExportManagerComponent implements OnInit {
   constructor(
     private el: ElementRef,
     public pq: PgQueryService,
-    public cm: CryptoManagerService
+    public cm: CryptoManagerService,
+    public alert: AlertManagerService
   ) {
     this.element = el.nativeElement
   }
@@ -69,6 +71,10 @@ export class ImportExportManagerComponent implements OnInit {
             currenTime.getMonth() + 1
           }.${currenTime.getFullYear()} ${currenTime.getHours()}-${currenTime.getMinutes()}-${currenTime.getSeconds()}`
           const extension = isSecured ? `.nbds` : `.nbd`
+          this.alert.success(
+            'Успешный импорт',
+            'Все данные из базы портированы в файл успешно.'
+          )
           FileSaver.saveAs(b, fileName + extension)
           this.closeModal()
         }
@@ -103,15 +109,22 @@ export class ImportExportManagerComponent implements OnInit {
         .map((val: string | number) => (val = +val))
       if (this.isSecuredFile) {
         if (this.cm.isPasswordRight(array, undefined, this.encodingPassword)) {
-          //ALERT MANAGER
+          this.alert.success(
+            'Верный пароль',
+            'Пароль введен верно. Система приступает к экспорту.'
+          )
           this.pq
             .exportEvents({ data: array, password: this.encodingPassword })
             .subscribe((res) => {
               this.closeModal()
+              this.alert.success(
+                'Успешный экспорт',
+                'Данные экспортированы успешно.'
+              )
               window.location.reload()
             })
         } else {
-          //ALERT MANAGER
+          this.alert.error('Неверный пароль', 'Вы ввели неверный пароль')
           console.log('пароль не верный')
         }
       }
