@@ -63,13 +63,11 @@
           ></textarea>
         </div>
         <div *ngIf="isAddMode(); else isEditButton">
-            <button type="submit" (click)="onAddEventClicked()">Add</button>
+          <button type="submit" (click)="onAddEventClicked()">Add</button>
         </div>
         <ng-template #isEditButton>
-            <button type="submit" (click)="onEditEventClicked()">Edit</button>
-
+          <button type="submit" (click)="onEditEventClicked()">Edit</button>
         </ng-template>
-
       </form>
       <div class="personBrowser">
         <div class="title"></div>

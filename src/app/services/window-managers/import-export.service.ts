@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core'
-import { ImportExportManagerComponent, ieManagerStates } from '../modalWindows/import-export-manager/import-export-manager.component'
+import {
+  ImportExportManagerComponent,
+  ieManagerStates,
+} from '../modalWindows/import-export-manager/import-export-manager.component'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImportExportService {
-
-  component : ImportExportManagerComponent
-  constructor() { }
+  component: ImportExportManagerComponent
+  constructor() {}
 
   openExport() {
     this.component.iestate = ieManagerStates.exportMode

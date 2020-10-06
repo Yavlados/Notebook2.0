@@ -1,129 +1,180 @@
 <div class="modalBackground personModalBackground">
   <div class="modalWindow personModalWindow">
     <div class="modalHeader personModalHeader">
-        <div class="button closeButton personCloseButton" (click)="closeModal()">X</div>
-        <div *ngIf="isAddMode(); else editMode">
-            <div class="title">Создание нового фигуранта</div>
-        </div>
-        <ng-template #editMode>
-            <div class="title">Редактирование выбранного фиугранта</div>
-        </ng-template>
+      <div class="button closeButton personCloseButton" (click)="closeModal()">
+        X
+      </div>
+      <div *ngIf="isAddMode(); else editMode">
+        <div class="title">Создание нового фигуранта</div>
+      </div>
+      <ng-template #editMode>
+        <div class="title">Редактирование выбранного фиугранта</div>
+      </ng-template>
     </div>
     <div class="modalBody personModalBody">
-        <form>
-            <div class="row">
-                <span class="legend">Фамилия:</span>
-                    <input type="text" 
-                    [(ngModel)]="editablePerson.lastname"
-                    (keydown)="personFieldIsEdited()"
-                    name="lastname"/>
-            </div>
-            <div class="row">
-                <span class="legend">Имя:</span>
-                    <input type="text" 
-                    [(ngModel)]="editablePerson.name"
-                    (keydown)="personFieldIsEdited()"
-                    name="name"/>
-            </div>
-            <div class="row">
-                <span class="legend">Отчество:</span>
-                    <input type="text" 
-                    [(ngModel)]="editablePerson.midname"
-                    (keydown)="personFieldIsEdited()"
-                    name="midname"/>
-            </div>
-            <div class="row">
-                <span class="legend">Кличка:</span>
-                    <input type="text"
-                    [(ngModel)]="editablePerson.alias"
-                    (keydown)="personFieldIsEdited()"
-                    name="alias"/>
-            </div>
-        </form>
-        <div class="tablesContainer">
-            <div class="telephonesTable">
-                <div class="title">
-                    Telephones
-                    <div class="button"
-                    *ngIf="isTelephoneClicked"
-                    (click)="onTelephoneRemoveClicked()">
-                        Remove
-                    </div>
-                </div>
-                <div class="body">
-                    <div *ngFor="let telephone of editablePerson.telephones;
-                    let telephoneIndex = index ">
-                    <div *ngIf="isNotRemoved(telephone)">
-                        <div [class]="'row telephoneRow telephone'+telephoneIndex +
-                        ' state'+ telephone.state"
-                        (click)="onTelephoneTableClicked(telephone, telephoneIndex)">
-                            <div class="phoneIcon">
-                                <img src="../../../assets/svgIcons/phone.svg">
-                            </div>
-                            <div class="telephoneNumber" 
-                            contenteditable="true" 
-                            (blur)="onTelephoneChanged($event, telephone)">
-                                {{telephone.number}}
-                            </div>
-                        </div>
-                    </div>
-                     </div>
-                     <form class="telephonesTableInputLayout"
-                     [formGroup]="addTelephoneForm">
-                        <input
-                        class="telephoneInput"
-                        type="text"
-                        formControlName="telephone"
-                        (keydown)="onTelephoneInput($event)"/>
-                        <div class="button" (click)="addTelephoneClicked()">Добавить</div>
-                     </form>
-                </div>
-            </div>
-            <div class="contactsTable">
-                <div class="title">
-                    Contacts
-                    <div *ngIf="isContactClicked" class="buttonLayout">
-                        <div class="button" (click)="onContactRemoveClicked()">
-                            Remove
-                        </div>
-                    </div>
-                </div>
-                <div class="body">
-                    <div *ngFor="let contact of clickedTelephone.contacts; 
-                    let contactIndex = index">
-                        <div *ngIf="isNotRemoved(contact)">
-                            <div [class]="'row contactRow contact'+contactIndex+' state'+contact.state"
-                            (click)="onContactTableClicked(contact, contactIndex)">
-                                <div class="contactIcon">
-                                    <img src="../../../assets/svgIcons/contact.svg">
-                                </div>
-                                <div class="contactNumber"
-                                contenteditable="true"
-                                (blur)="onContactNumberChanged($event, contact)">
-                                {{contact.number}}</div>
-                                <div class="contactAlias"
-                                contenteditable="true" 
-                                (blur)="onContactAliasChanged($event, contact)">
-                                {{contact.alias}}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="isTelephoneClicked">
-                        <form [formGroup]="addContactForm" (ngSubmit)="onContactInput($event)">
-                            <input type="text" formControlName="telephone"/>
-                            <input type="text" formControlName="alias"/>
-                            <button type="submit">Add</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+      <form>
+        <div class="row">
+          <span class="legend">Фамилия:</span>
+          <input
+            type="text"
+            [(ngModel)]="editablePerson.lastname"
+            (keydown)="personFieldIsEdited()"
+            name="lastname"
+          />
         </div>
-        <div *ngIf="isAddMode()">
-            <div class="button personSubmitButton" (click)="onAddButtonClicked()">Add</div>
+        <div class="row">
+          <span class="legend">Имя:</span>
+          <input
+            type="text"
+            [(ngModel)]="editablePerson.name"
+            (keydown)="personFieldIsEdited()"
+            name="name"
+          />
         </div>
-        <div *ngIf="isEditMode()">
-            <div class="button personSubmitButton" (click)="onEditButtonClicked()">Edit</div>
+        <div class="row">
+          <span class="legend">Отчество:</span>
+          <input
+            type="text"
+            [(ngModel)]="editablePerson.midname"
+            (keydown)="personFieldIsEdited()"
+            name="midname"
+          />
         </div>
+        <div class="row">
+          <span class="legend">Кличка:</span>
+          <input
+            type="text"
+            [(ngModel)]="editablePerson.alias"
+            (keydown)="personFieldIsEdited()"
+            name="alias"
+          />
+        </div>
+      </form>
+      <div class="tablesContainer">
+        <div class="telephonesTable">
+          <div class="title">
+            Telephones
+            <div
+              class="button"
+              *ngIf="isTelephoneClicked"
+              (click)="onTelephoneRemoveClicked()"
+            >
+              Remove
+            </div>
+          </div>
+          <div class="body">
+            <div
+              *ngFor="
+                let telephone of editablePerson.telephones;
+                let telephoneIndex = index
+              "
+            >
+              <div *ngIf="isNotRemoved(telephone)">
+                <div
+                  [class]="
+                    'row telephoneRow telephone' +
+                    telephoneIndex +
+                    ' state' +
+                    telephone.state
+                  "
+                  (click)="onTelephoneTableClicked(telephone, telephoneIndex)"
+                >
+                  <div class="phoneIcon">
+                    <img src="../../../assets/svgIcons/phone.svg" />
+                  </div>
+                  <div
+                    class="telephoneNumber"
+                    contenteditable="true"
+                    (blur)="onTelephoneChanged($event, telephone)"
+                  >
+                    {{ telephone.number }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form
+              class="telephonesTableInputLayout"
+              [formGroup]="addTelephoneForm"
+            >
+              <input
+                class="telephoneInput"
+                type="text"
+                formControlName="telephone"
+                (keydown)="onTelephoneInput($event)"
+              />
+              <div class="button" (click)="addTelephoneClicked()">Добавить</div>
+            </form>
+          </div>
+        </div>
+        <div class="contactsTable">
+          <div class="title">
+            Contacts
+            <div *ngIf="isContactClicked" class="buttonLayout">
+              <div class="button" (click)="onContactRemoveClicked()">
+                Remove
+              </div>
+            </div>
+          </div>
+          <div class="body">
+            <div
+              *ngFor="
+                let contact of clickedTelephone.contacts;
+                let contactIndex = index
+              "
+            >
+              <div *ngIf="isNotRemoved(contact)">
+                <div
+                  [class]="
+                    'row contactRow contact' +
+                    contactIndex +
+                    ' state' +
+                    contact.state
+                  "
+                  (click)="onContactTableClicked(contact, contactIndex)"
+                >
+                  <div class="contactIcon">
+                    <img src="../../../assets/svgIcons/contact.svg" />
+                  </div>
+                  <div
+                    class="contactNumber"
+                    contenteditable="true"
+                    (blur)="onContactNumberChanged($event, contact)"
+                  >
+                    {{ contact.number }}
+                  </div>
+                  <div
+                    class="contactAlias"
+                    contenteditable="true"
+                    (blur)="onContactAliasChanged($event, contact)"
+                  >
+                    {{ contact.alias }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="isTelephoneClicked">
+              <form
+                [formGroup]="addContactForm"
+                (ngSubmit)="onContactInput($event)"
+              >
+                <input type="text" formControlName="telephone" />
+                <input type="text" formControlName="alias" />
+                <button type="submit">Add</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isAddMode()">
+        <div class="button personSubmitButton" (click)="onAddButtonClicked()">
+          Add
+        </div>
+      </div>
+      <div *ngIf="isEditMode()">
+        <div class="button personSubmitButton" (click)="onEditButtonClicked()">
+          Edit
+        </div>
+      </div>
     </div>
   </div>
 </div>

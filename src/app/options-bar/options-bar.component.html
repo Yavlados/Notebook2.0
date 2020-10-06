@@ -1,13 +1,13 @@
 <div class="optionsBar">
-    <div class="button" (click)="onAddEventClicked()">Добавить ЗК</div>
-    <div class="button">Поиск</div>
-    <div class="button"
+  <div class="button" (click)="onAddEventClicked()">Добавить ЗК</div>
+  <div class="button">Поиск</div>
+  <div
+    class="button"
     *ngIf="isEventSelected()"
-    (click)="onRemoveEventClicked()">Удалить ЗК</div>
-    <div class="button"
-    (click)="onImportClicked()"
-    >Импорт</div>
-    <div class="button"
-    (click)="onExportClicked()"
-    >Экспорт</div>
+    (click)="onRemoveEventClicked()"
+  >
+    Удалить ЗК
+  </div>
+  <div class="button" (click)="onImportClicked()">Импорт</div>
+  <div class="button" (click)="onExportClicked()">Экспорт</div>
 </div>

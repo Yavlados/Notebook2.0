@@ -1,12 +1,10 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({
-  name: 'jsonKeys'
+  name: 'jsonKeys',
 })
 export class JsonKeysPipe implements PipeTransform {
-
   transform(value: any): any[] {
-    return Object.keys(value);
+    return Object.keys(value)
   }
-
 }
