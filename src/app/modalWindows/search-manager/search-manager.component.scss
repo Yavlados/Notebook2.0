@@ -1,0 +1,18 @@
+.modalBackground {
+  .modalWindow {
+    width: 35%;
+    height: 45%;
+    padding: 1rem;
+    .modalHeader {
+      .closeButton {
+        right: 32%;
+      }
+    }
+    .modalBody {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      justify-content: center;
+    }
+  }
+}

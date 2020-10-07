@@ -1,0 +1,97 @@
+<div class="modalBackground">
+  <div class="modalWindow">
+    <div class="modalHeader">
+      <div class="button closeButton" (click)="closeModal()">X</div>
+    </div>
+    <div class="modalBody">
+      <h3>Event</h3>
+      <label for="evCategory">Category</label>
+      <input
+        type="text"
+        id="evCategory"
+        [(ngModel)]="eventForSearch.category"
+      />
+
+      <label for="evDetentionBy">Detention by</label>
+      <input
+        type="text"
+        id="evDetentionBy"
+        [(ngModel)]="eventForSearch.detention_by"
+      />
+
+      <label for="evDetentionDate">Detention date</label>
+      <input
+        type="text"
+        id="evDetentionDate"
+        [(ngModel)]="eventForSearch.detention_date"
+      />
+
+      <label for="evDetentionReason">Detention reason</label>
+      <input
+        type="text"
+        id="evDetentionReason"
+        [(ngModel)]="eventForSearch.detention_reason"
+      />
+
+      <label for="evKeepingPlace">Keeping place</label>
+      <input
+        type="text"
+        id="evKeepingPlace"
+        [(ngModel)]="eventForSearch.keeping_place"
+      />
+
+      <label for="evAdditional">Additional</label>
+      <input
+        type="text"
+        id="evAdditional"
+        [(ngModel)]="eventForSearch.additional"
+      />
+      <h3>Person</h3>
+      <label for="persName">Name</label>
+      <input
+        type="text"
+        id="persName"
+        [(ngModel)]="eventForSearch.persons[0].name"
+      />
+      <label for="persLastname">Lastname</label>
+      <input
+        type="text"
+        id="persLastname"
+        [(ngModel)]="eventForSearch.persons[0].lastname"
+      />
+      <label for="persMidname">Midname</label>
+      <input
+        type="text"
+        id="persMidname"
+        [(ngModel)]="eventForSearch.persons[0].midname"
+      />
+      <label for="persAlias">Alias</label>
+      <input
+        type="text"
+        id="persAlias"
+        [(ngModel)]="eventForSearch.persons[0].alias"
+      />
+      <h3>Telephone</h3>
+      <label for="telNumber">Number</label>
+      <input
+        type="number"
+        id="telNumber"
+        [(ngModel)]="eventForSearch.persons[0].telephones[0].number"
+      />
+      <h3>Contact</h3>
+      <label for="contNumber">Number</label>
+      <input
+        type="number"
+        id="contNumber"
+        [(ngModel)]="eventForSearch.persons[0].telephones[0].contacts[0].number"
+      />
+      <label for="contAlias">Alias</label>
+      <input
+        type="number"
+        id="contAlias"
+        [(ngModel)]="eventForSearch.persons[0].telephones[0].contacts[0].alias"
+      />
+      <div class="button">Поиск</div>
+    </div>
+  </div>
+</div>

@@ -21,7 +21,8 @@ import { OptionsBarComponent } from './options-bar/options-bar.component'
 import { EventManagerComponent } from './modalWindows/event-manager/event-manager.component'
 import { PersonManagerComponent } from './modalWindows/person-manager/person-manager.component'
 import { ImportExportManagerComponent } from './modalWindows/import-export-manager/import-export-manager.component'
-import { AlertComponent } from './alert/alert.component'
+import { AlertComponent } from './alert/alert.component';
+import { SearchManagerComponent } from './modalWindows/search-manager/search-manager.component'
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AlertComponent } from './alert/alert.component'
     PersonManagerComponent,
     ImportExportManagerComponent,
     AlertComponent,
+    SearchManagerComponent,
   ],
   imports: [
     BrowserModule,

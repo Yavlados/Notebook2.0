@@ -4,6 +4,7 @@
     (ondAddEvent)="openAddEvent()"
     (onImport)="openImport()"
     (onExport)="openExport()"
+    (onSearch)="openSearch()"
   ></app-options-bar>
 </div>
 <app-event-manager #eventManager> </app-event-manager>
@@ -11,5 +12,6 @@
 </app-person-manager>
 <app-import-export-manager #importExportManager> </app-import-export-manager>
 <app-alert #alert></app-alert>
+<app-search-manager #searchManager> </app-search-manager>
 
 <router-outlet></router-outlet>

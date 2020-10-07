@@ -19,10 +19,11 @@ export class OptionsBarComponent implements OnInit {
   @Output() ondAddEvent: EventEmitter<any> = new EventEmitter<any>()
   @Output() onImport: EventEmitter<any> = new EventEmitter<any>()
   @Output() onExport: EventEmitter<any> = new EventEmitter<any>()
+  @Output() onSearch: EventEmitter<any> = new EventEmitter<any>()
 
-  constructor(public et: EventTableService, public ie: ImportExportService) {}
+  constructor(public et: EventTableService, public ie: ImportExportService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onAddEventClicked() {
     this.ondAddEvent.emit()
@@ -45,5 +46,9 @@ export class OptionsBarComponent implements OnInit {
 
   onExportClicked() {
     this.onExport.emit()
+  }
+
+  onSearchClicked() {
+    this.onSearch.emit()
   }
 }

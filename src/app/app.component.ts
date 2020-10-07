@@ -15,6 +15,10 @@ import { ImportExportManagerComponent } from './modalWindows/import-export-manag
 import { AlertComponent } from './alert/alert.component'
 import { AlertManagerService } from './services/window-managers/alert-manager.service'
 
+import { SearchManagerService } from './services/window-managers/search-manager.service'
+import { SearchEventComponent } from './main-page/search-event/search-event.component'
+import { SearchManagerComponent } from './modalWindows/search-manager/search-manager.component'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,20 +30,23 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('personManager') personManager: PersonManagerComponent
   @ViewChild('importExportManager') ieManager: ImportExportManagerComponent
   @ViewChild('alert') alert: AlertComponent
+  @ViewChild('searchManager') search: SearchManagerComponent
 
   constructor(
     public pg: PgService,
     public em: EventManagerService,
     public pm: PersonManagerService,
     public ie: ImportExportService,
-    public as: AlertManagerService
-  ) {}
+    public as: AlertManagerService,
+    public sm: SearchManagerService
+  ) { }
 
   ngAfterViewInit(): void {
     this.em.component = this.eventManager
     this.pm.component = this.personManager
     this.ie.component = this.ieManager
     this.as.component = this.alert
+    this.sm.component = this.search
   }
 
   checkRouterState() {
@@ -61,5 +68,9 @@ export class AppComponent implements AfterViewInit {
 
   openExport() {
     this.ie.openExport()
+  }
+
+  openSearch() {
+    this.sm.openSearch()
   }
 }
