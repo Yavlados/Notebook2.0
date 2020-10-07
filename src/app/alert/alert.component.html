@@ -1,0 +1,9 @@
+<div [class]="'alertContainer ' + alertTypeClass">
+  <div class="button closeButton" (click)="closeAlert()">X</div>
+  <div class="alertHeader">
+    <h3>{{ alertHeader }}</h3>
+  </div>
+  <div class="alertBody">
+    <p>{{ alertMessage }}</p>
+  </div>
+</div>

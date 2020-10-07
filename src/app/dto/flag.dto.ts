@@ -1,6 +1,6 @@
 export enum stateFlag {
-    isReaded,
-    isUpdated,
-    isAdded,
-    isRemoved
+  isReaded,
+  isUpdated,
+  isAdded,
+  isRemoved,
 }

@@ -4,7 +4,6 @@ $buttonBC: #333333;
 $buttonBCHover: #706c61;
 $buttonC: white;
 
-
 @font-face {
   font-family: Roboto;
   src: url(./assets/font/Roboto-Light.ttf) format("truetype");
@@ -14,46 +13,44 @@ body {
   font-family: Roboto;
 }
 
-.button{
+.button {
   cursor: pointer;
   background-color: $buttonBC;
   color: $buttonC;
   font-size: 0.8rem;
-  padding:  0.5rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   margin: 0 0.25rem;
   border-radius: 5px;
   font-weight: normal;
   text-align: center;
   align-self: center;
-  
-  &:hover{
+
+  &:hover {
     background-color: $buttonBCHover;
     transition: 0.25s;
   }
 }
 
-form{
+form {
   display: grid;
   font-size: 1.2rem;
   margin: 0 2rem;
 
-  .row{
+  .row {
     margin: 0.5rem 0;
     display: grid;
     grid-template-columns: 1fr 3fr;
     width: 100%;
 
-    .legend{
-
+    .legend {
     }
 
-    .text{
-
+    .text {
     }
   }
 }
 
-.modalBackground{
+.modalBackground {
   position: fixed;
   top: 0;
   right: 0;
@@ -66,46 +63,44 @@ form{
   background-color: rgba(0, 0, 0, 0.5);
   transition: 5s;
 
-  .modalWindow{
-      z-index: 999;
-      background-color: #fff;
-      width: 90%;
-      height: 90%;
-      border-radius: 5px;
+  .modalWindow {
+    z-index: 999;
+    background-color: #fff;
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
 
-      .modalHeader{
-
-          .title {
-              text-align: center;
-              font-size: 1.2rem;
-              font-weight: bolder;
-              margin: 1rem;
-          }
-
-          .closeButton{
-              position: absolute;
-              right: 6%;
-          }
+    .modalHeader {
+      .title {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bolder;
+        margin: 1rem;
       }
 
-      .modalBody {
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-
-          .personBrowser{
-              position: absolute;
-              right: 6%;
-              height: 70%;
-              width: 26%;
-              background-color: #f6f6f6f6;
-              padding: 2rem;
-
-              .buttonsLayout{
-                  display: flex;
-                  justify-content: center;
-              }
-          }
-
+      .closeButton {
+        position: absolute;
+        right: 6%;
       }
+    }
+
+    .modalBody {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+
+      .personBrowser {
+        position: absolute;
+        right: 6%;
+        height: 70%;
+        width: 26%;
+        background-color: #f6f6f6f6;
+        padding: 2rem;
+
+        .buttonsLayout {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
   }
 }
